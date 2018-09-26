@@ -3,14 +3,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.util.Properties;
-
-import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.servlet.ServletException;
 import com.zwq.user.dao.UserDao;
 import com.zwq.user.domain.User;
 import com.zwq.user.service.exception.UserException;
-
 import cn.itcast.commons.CommonUtils;
 import cn.itcast.mail.Mail;
 import cn.itcast.mail.MailUtils;
@@ -138,11 +135,13 @@ public class UserService {
 		return b;
 	}	
 	
-	
-	
-	
-	
-	
-	
-	
+	/**
+	 * 登录功能
+	 * @param loginname
+	 * @param loginpass
+	 */
+	public User login(String loginname,String loginpass) {
+		User user = userDao.findByLoginnameAndLoginPass(loginname, loginpass);
+		return user;
+	}	
 }

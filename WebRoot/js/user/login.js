@@ -112,25 +112,25 @@ function validateLoginname() {
 		return false;
 	}
 	
-	/*
-	 * 是否注册校验
-	 */
-	$.ajax({		
-		url:"ajaxValidateLoginname.do",
-		data:{method:"ajaxValidateLoginname",loginname:value},
-	    type:"POST",
-	    dataType:"json",
-	    async:false,
-	    cache:false,
-	    success:function(result){
-	    	if(!result){
-	    		$("#"+id+"Error").text("用户名已被注册！");
-	    		showError($("#"+id+"Error"));
-	    		return false;
-	    	}
-	    	return true;
-	    }
-});
+//	/*
+//	 * 是否注册校验
+//	 */
+//	$.ajax({		
+//		url:"ajaxValidateLoginname.do",
+//		data:{method:"ajaxValidateLoginname",loginname:value},
+//	    type:"POST",
+//	    dataType:"json",
+//	    async:false,
+//	    cache:false,
+//	    success:function(result){
+//	    	if(!result){
+//	    		$("#"+id+"Error").text("用户名已被注册！");
+//	    		showError($("#"+id+"Error"));
+//	    		return false;
+//	    	}
+//	    	return true;
+//	    }
+//});
 	return true;
 }
 

@@ -57,23 +57,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- 		<form name="login" method="post" action="UserServlet?method=login">
  -->	
 	<form id = "loginForm" name="login" method="post" action="login.do">
-				<label id="loginnameError" class="errorClass"></label>
-				<input type="text" name="loginname" class="inputClass" id = "loginname"
+				<label id="loginnameError" class="errorClass">${errors.loginnameError }</label>
+				<input type="text" name="loginname" value = "${userForm.loginname }" class="inputClass" id = "loginname"
 				<%-- 	
 					onfocus="this.value = '';"
 					onblur="if(this.value==''){this.value='Username';}" 
 				--%> 
 				/>	
-				     <label id="loginpassError" class="errorClass"></label>
-					 <input type="password" name="loginpass" class="inputClass" id = "loginpass"
+				     <label id="loginpassError" class="errorClass">${errors.loginpassError }</label>
+					 <input type="password" name="loginpass" value = "${userForm.loginpass }" class="inputClass" id = "loginpass"
 				<%--
 					onfocus="this.value='';"
 					onblur="if(this.value==''){this.value='1223334444'}"  
 				--%>
 				/>
-				    <label id="verifyCodeError" class="errorClass"></label>
+				    <label id="verifyCodeError" class="errorClass">${errors.verifyCodeError }</label>
 					<label class="registerlabel">输入验证码：</label>
-    	            <input type="text" name="randomCode" id = "verifyCode" class="verify"
+    	            <input type="text" name="verifyCode" value = "${userForm.verifyCode }" id = "verifyCode" class="verify"
     	      <%--	      
     	            value="" 
     	            onfocus="this.value='';"		

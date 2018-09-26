@@ -6,9 +6,7 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.zwq.user.domain.User;
-
 import cn.itcast.jdbc.TxQueryRunner;
 
 public class UserDao {
@@ -80,5 +78,19 @@ public class UserDao {
 	 qr.update(sql,status,uid);
   }
   
+  
+  public User findByLoginnameAndLoginPass(String loginname,String loginpass) {
+	  String sql = "select * from users where loginname=? And loginpass=?";
+	  User user = new User();
+	  try {
+		user = qr.query(sql, new BeanHandler<User>(User.class),loginname,loginpass);
+	} catch (SQLException e) {
+		// TODO 自动生成的 catch 块
+		e.printStackTrace();
+	}
+	  return user;
+	  
+  }
+ 
   
 }

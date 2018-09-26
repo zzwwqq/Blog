@@ -2,11 +2,13 @@ package com.zwq.user.web.servlet;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -67,10 +69,8 @@ public class UserServlet extends HttpServlet{
 			e.printStackTrace();
 		} 	
 	}
-		
-	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("login");
-	}
+	
+	
 
 	/**
 	 * 注册
@@ -226,6 +226,108 @@ public class UserServlet extends HttpServlet{
 		return;
 	}
 	
+	
+	/**
+	 * 登录功能
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//System.out.println("login");
+		/*
+		 * 封装表单数据
+		 */
+		User userForm = CommonUtils.toBean(request.getParameterMap(), User.class);
+		
+		/*
+		 * 校验
+		 * 如果校验失败，返回登录界面，并回显表单数据
+		 * 特别提示：如果转发语句的后面还有语句，那么一定要在转发语句后面添加return;否则会抛异常
+		 */
+		Map<String, String> errors = validateLogin(userForm, request.getSession());
+		if (errors.size() > 0) {
+			request.setAttribute("userForm", userForm);
+			request.setAttribute("errors", errors);
+			/*
+			 * 特别提示：如果转发语句的后面还有语句，那么一定要在转发语句后面添加return;否则会抛异常
+			 * 转发时，路径中第一个"/"代表" http://localhost:8080/blog/"
+			 * 重定向，时路径中第一个"/"代表" http://localhost:8080/"
+			 */
+			request.getRequestDispatcher("/jsps/user/login.jsp").forward(request, response);
+			return;
+		}
+	
+		/*
+		 * 校验成功，保存用户数据到session和cookie中，并跳转到成功界面
+		 */
+		//保存用户到session，目的：当要修改当前用户密码时，可以直接从session中获取用户名，然后拿着这个用户名和表单中输入的旧密码一起到数据库查询，来确定旧密码是否正确
+		User user = userService.login(userForm.getLoginname(), userForm.getLoginpass());
+		request.getSession().setAttribute("sessionUser", user);
+		URLEncoder.encode(user.getLoginname(), "UTF-8");
+		Cookie cookie = new Cookie("loginname", user.getLoginname());
+		cookie.setMaxAge(60*60*24*10);//cookie保存10天
+		response.addCookie(cookie);
+		request.setAttribute("code", "success");
+		request.setAttribute("msg", "恭喜您登录成功！");
+		//重定向后，request被清空，不能再获取request中的数据
+		//response.sendRedirect("/blog/index.jsp");
+		//转发
+		request.getRequestDispatcher("/index.jsp").forward(request, response);
+	}
+	
+	/**
+	 * 登录校验
+	 * @return
+	 */
+	private Map<String, String> validateLogin(User userForm,HttpSession session) {
+		Map<String, String>errors=new HashMap<String, String>();
+		String loginname = userForm.getLoginname();
+		String loginpass = userForm.getLoginpass();
+		String verifyCode = userForm.getVerifyCode();
+		User user = new User();
+		/*
+		 * 验证用户名
+		 */
+		if (loginname == null|| loginname.trim().isEmpty()) {
+			errors.put("loginnameError", "用户名不能为空！");
+		}
+		if (loginname.length() < 3 || loginname.length() > 20) {
+			errors.put("loginnameError", "用户名长度必须在3~20之间！");
+		}
+			
+		/*
+		 * 验证密码
+		 */
+		user = userService.login(loginname, loginpass);
+		if(loginpass == null || loginpass.trim().isEmpty()) {
+			errors.put("loginpassError", "密码不能为空！");
+		}
+		if(user == null) {
+			errors.put("loginpassError", "用户名或密码错误!");
+		} else {
+			if (user.getStatus() == 0) {
+				errors.put("loginpassError", "账号未激活，请查看邮件激活!");
+			}
+		}
+		
+		
+		/*
+		 * 验证验证码
+		 */
+	    String vCode = (String) session.getAttribute("vCode");
+		if (verifyCode == null || verifyCode.trim().isEmpty()) {
+			errors.put("verifyCodeError", "验证码不能为空！");
+		}
+		if (verifyCode.length() != 4) {
+			errors.put("verifyCodeError","验证码长度不对!");
+		}
+		if(!verifyCode.equalsIgnoreCase(vCode)) {
+			errors.put("verifyCodeError", "验证码错误!");
+		}
+		return errors;		
+	}
 	
 	
 	
