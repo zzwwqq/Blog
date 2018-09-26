@@ -61,7 +61,7 @@ $(function(){
   
   
   /*
-	 * 只有全部输入符合要求时，才能提交数据到后台
+	 * 只有boolValue为true时，才能提交数据到后台
 	 */
 	$("#loginForm").submit(function(){
 		var boolValue = true;  //表示校验通过		
@@ -75,10 +75,7 @@ $(function(){
 			boolValue = false;
 		}	
 		return boolValue;
-	});
-  
-	
-  
+	});  
 });
 
 //显示错误信息
@@ -127,7 +124,7 @@ function validateLoginname() {
 	    cache:false,
 	    success:function(result){
 	    	if(!result){
-	    		$("#"+id+"Error").text("用户名已经注册");
+	    		$("#"+id+"Error").text("用户名已被注册！");
 	    		showError($("#"+id+"Error"));
 	    		return false;
 	    	}
@@ -204,14 +201,13 @@ function validateVerifyCode() {
 		async:false,
 		cache:false,
 		success:function(result) {
-			if(!result){
+			if(!result) {
 				$("#" + id+"Error").text("验证码错误！");
 				showError($("#"+id+"Error"));
 				return false;
 			}
 			return true;
 		}
-	})
-	return true;
-		
+	});
+	return true;		
 }

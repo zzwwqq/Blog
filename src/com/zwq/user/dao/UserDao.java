@@ -3,8 +3,10 @@ package com.zwq.user.dao;
 import java.sql.SQLException;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.zwq.user.domain.User;
 
 import cn.itcast.jdbc.TxQueryRunner;
@@ -51,4 +53,32 @@ public class UserDao {
 	  boolean b = number.intValue() == 0;
 	  return b;
   }   
+  
+  /**
+   * 通过激活码查询
+   * @param activationCode
+   * @return
+   */
+  public User findByCode(String activationCode) {
+	  String sql = "select * from users where activationCode=?";
+	  User user = new User();
+	  try {
+		 user = qr.query(sql, new BeanHandler<User>(User.class),activationCode);
+	} catch (SQLException e) {
+		// TODO 自动生成的 catch 块
+		e.printStackTrace();
+	}
+	  return user;	  
+  }
+  
+  /**
+   * 修改激活状态
+ * @throws SQLException 
+   */
+  public void updateStatus(String uid,int status) throws SQLException {
+	 String sql = "update users set status=? where uid=?";
+	 qr.update(sql,status,uid);
+  }
+  
+  
 }

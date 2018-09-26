@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.zwq.user.domain.User;
 import com.zwq.user.service.UserService;
+import com.zwq.user.service.exception.UserException;
 
 import cn.itcast.commons.CommonUtils;
 
@@ -80,7 +81,7 @@ public class UserServlet extends HttpServlet{
 	 * @throws SQLException 
 	 */
 	private void regist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException{
-	//System.out.println("regist");	
+//	System.out.println("regist");	
 		/*
 		 * 封装表单数据到User对象
 		 */
@@ -116,7 +117,8 @@ public class UserServlet extends HttpServlet{
 		 */	
 		request.setAttribute("code", "success");
 		request.setAttribute("msg", "注册成功，请马上去邮箱激活！");
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		//request.getRequestDispatcher("index.jsp").forward(request, response);
+		request.getRequestDispatcher("jsps/msg.jsp").forward(request, response);
 		return;
 	}
 	
@@ -198,6 +200,32 @@ public class UserServlet extends HttpServlet{
 	}
 	
 
+	/*
+	 * 激活功能
+	 */
+	private void activation(HttpServletRequest request,HttpServletResponse response) {
+		String activationCode = request.getParameter("activationCode");
+		try {
+			userService.activation(activationCode);
+			//上一句未抛出异常时，执行下面的语句
+			request.setAttribute("code", "success");
+			request.setAttribute("msg", "恭喜您激活成功！");
+		} catch (UserException e) {
+			request.setAttribute("code", "error");
+			request.setAttribute("msg", e.getMessage());
+		}
+		try {
+			request.getRequestDispatcher("/jsps/msg.jsp").forward(request, response);
+		} catch (ServletException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		return;
+	}
+	
 	
 	
 	
@@ -215,24 +243,17 @@ public class UserServlet extends HttpServlet{
 	 * @throws IOException
 	 * @throws SQLException
 	 */
-	private void ajaxValidateLoginname(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-		
-		/*
-		 * 测试使用
-		 * System.out.println("ajaxValidateLoginname");
-		 * response.getWriter().print(true);
-		 */
+	private void ajaxValidateLoginname(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {			 
 		String loginname = request.getParameter("loginname");
 		boolean b = userService.ajaxValidateLoginname(loginname);	
 		/*
 		 * 将信息返回客户端
 		 */
 		response.getWriter().print(b);
+		
 	}
 	
 	private void ajaxValidateEmail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-		//System.out.println("ajaxValidateEmail");
-		//response.getWriter().print(true);
 		String email = request.getParameter("email");
 		boolean b = userService.ajaxValidateEmail(email);
 		response.getWriter().print(b);
@@ -242,8 +263,6 @@ public class UserServlet extends HttpServlet{
 	 * 验证码保存在session中，而不是数据库中，所以此处直接比较session中的验证码和用户输入的验证码
 	 */
 	private void ajaxValidateVerifyCode(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//System.out.println("ajaxValidateVerifyCode");
-		//response.getWriter().print(true);
 		/*
 		 * 从表单获取验证码
 		 */
