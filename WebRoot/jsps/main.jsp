@@ -1,6 +1,4 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -11,7 +9,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>My JSP 'main.jsp' starting page</title>
+    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -20,20 +19,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+
   </head>
   
-  	<body>
+  <body>
      <h1><%=request.getAttribute("code") %></h1>
      <h2><%=request.getAttribute("msg") %></h2>
-     <h3>${a }i</h3>
-     <h4>${b }n</h4>
-     <span>${a}</span><br/>
-     <span>${b }</span><br/>
-     <h5><%=request.getAttribute("a") %></h5>
-     <h6><%=request.getAttribute("b") %></h6>
-     <h5><%=request.getParameter("a") %></h5>
-     <h6><%=request.getParameter("b") %></h6>
-     <h5><%=request.getParameter("c") %></h5>
-     <span>${c }</span><br/>
-  	</body>
+<%
+ Object c = (Object)request.getAttribute("code");
+
+ %>
+    <a href="jsps/user/updatepassword.jsp?user=<%=request.getSession().getAttribute("sessionUser")%>">修改密码</a>
+    <a href = "jsps/user/regist.jsp">注册</a>
+    <a href = "jsps/user/login.jsp">登录</a>
+    <a href = "index.jsp?a=123&b='qq'&c=<%=request.getAttribute("code")%>">状态</a>
+    
+    
+    
+  </body>
 </html>

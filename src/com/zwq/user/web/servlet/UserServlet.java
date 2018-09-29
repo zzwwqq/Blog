@@ -183,6 +183,26 @@ public class UserServlet extends HttpServlet{
 		} else if (!userService.ajaxValidateEmail(email)) {
 			errors.put("emailError", "Email已被注册！");
 		}
+
+		/*
+		 * 验证手机号
+		 */
+		String telephone = userForm.getTelephone();
+		if(telephone == null || telephone.trim().isEmpty()) {
+			errors.put("telephoneError", "手机号不能为空!");
+		} else if(!telephone.matches("^([0-9]{11})$")) {
+			errors.put("telephoneError", "手机号格式错误，必须为数字，且长度为11位！");
+		} else if (!userService.ajaxValidateTelephone(telephone)) {
+			errors.put("telephoneError", "手机号已被注册！");
+		}
+		
+		/*
+		 * 验证密保答案
+		 */
+		String answer = userForm.getAnswer();
+		if (answer == null || answer.trim().isEmpty()) {
+			errors.put("answerError", "密保不能为空!");
+		}
 		
 		/*
 		 * 验证验证码
@@ -274,7 +294,7 @@ public class UserServlet extends HttpServlet{
 		//重定向后，request被清空，不能再获取request中的数据
 		//response.sendRedirect("/blog/index.jsp");
 		//转发
-		request.getRequestDispatcher("/index.jsp").forward(request, response);
+		request.getRequestDispatcher("/jsps/main.jsp").forward(request, response);
 	}
 	
 	/**
@@ -330,15 +350,99 @@ public class UserServlet extends HttpServlet{
 	}
 	
 	
+	/**
+	 * 修改密码
+	 * @throws IOException 
+	 * @throws ServletException 
+	 */
+	public void updatePassword(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		/*
+		 * 1.封装表单数据到user中
+		 * 2.校验
+		 * 3.从session中获取uid
+		 * 4.使用uid和表单中的oldPass和newPass来调用service方法
+		 * >如果出现异常，保存异常信息到request，转发到pwd.jsp
+		 * 5.保存成功信息到request中
+		 * 6.转发到msg.jsp
+		 */
+
+		User userForm = CommonUtils.toBean(request.getParameterMap(), User.class);
+
+		Map<String, String> errors = validateUpdatePassword(userForm, request.getSession());
+		if (errors.size() > 0) {
+			request.setAttribute("userForm", userForm);
+			request.setAttribute("errors", errors);
+			request.getRequestDispatcher("/jsps/user/updatepassword.jsp").forward(request, response);
+			return;
+		}	
+		User user = (User) request.getSession().getAttribute("sessionUser");
+		if(user == null) {
+			request.setAttribute("msg", "您还未登录!");
+			request.setAttribute("code", "error");
+			request.getRequestDispatcher("/jsps/msg.jsp").forward(request, response);;
+			return;
+		}
+		
+		/*
+		 * 用户已经登录
+		 */
+		try {
+			userService.updatePassword(user.getUid(), userForm.getNewpass(), userForm.getLoginpass());
+			
+			request.setAttribute("msg", "修改密码成功！");
+			request.setAttribute("code", "success");
+			request.getRequestDispatcher("/jsps/msg.jsp").forward(request, response);;
+			return;
+		} catch (UserException e) {
+			request.setAttribute("msg", e.getMessage());
+			request.setAttribute("userForm", userForm);
+			request.getRequestDispatcher("/jsps/user/updatepassword.jsp").forward(request, response);;
+			return;
+		}
 	
+	}
 	
-	
-	
-	
-	
-	
+	private Map<String,String> validateUpdatePassword(User userForm,HttpSession session) {
+		Map<String, String>errors=new HashMap<String, String>();
+		String loginpass = userForm.getLoginpass();
+		String newpass = userForm.getNewpass();
+		String reloginpass = userForm.getReloginpass();
+		String verifyCode = userForm.getVerifyCode();
+		String vCode = (String) session.getAttribute("vCode");
+
+		/*
+		 * 非空校验 ，格式校验
+		 */
+		if (loginpass == null || loginpass.trim().isEmpty()) {
+			errors.put("loginpassError", "原密码不能为空！");
+		} else if (loginpass.length() < 6 || loginpass.length() > 16) {
+			errors.put("loginnameError", "密码长度必须在6~16之间！");
+		}
+		if (newpass == null || newpass.trim().isEmpty()) {
+			errors.put("newpassError", "新密码不能为空！");
+		} else if (newpass.length() < 6 || newpass.length() > 16) {
+			errors.put("newpassError", "密码长度必须在6~16之间！");
+		}
+		if (reloginpass == null || reloginpass.trim().isEmpty()) {
+			errors.put("reloginpassError", "确认密码不能为空！");
+		} else if(!newpass.equals(reloginpass)) {
+			errors.put("reloginpassError", "两次密码不一致！");
+		}
+		
+		if (verifyCode == null || verifyCode.trim().isEmpty()) {
+			errors.put("verifyCodeError", "验证码不能为空！");
+		}  else if(verifyCode.length() != 4) {
+			errors.put("verifyCodeError", "验证码长度不对!");
+		} else if (!verifyCode.equalsIgnoreCase(vCode)) {
+			errors.put("verifyCodeError", "验证码错误!");
+		}	
+		return errors;
+		
+	}
+
 	/**
 	 * 前台js文件中ajax请求该函数
+	 * 前台仅仅需要一个Boolean值
 	 * @param request
 	 * @param response
 	 * @throws ServletException
@@ -360,7 +464,13 @@ public class UserServlet extends HttpServlet{
 		boolean b = userService.ajaxValidateEmail(email);
 		response.getWriter().print(b);
 	}
-	
+		
+	private void ajaxValidateTelephone(HttpServletRequest request,HttpServletResponse response) throws SQLException, IOException {
+		String telephone = request.getParameter("telephone");
+		boolean b = userService.ajaxValidateTelephone(telephone);
+		response.getWriter().print(b);
+	}
+		
 	/**
 	 * 验证码保存在session中，而不是数据库中，所以此处直接比较session中的验证码和用户输入的验证码
 	 */
@@ -383,4 +493,5 @@ public class UserServlet extends HttpServlet{
 		 */
 		response.getWriter().print(b);
 	}
+		
 }

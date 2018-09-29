@@ -17,7 +17,11 @@ public class User {
     
     //修改密码表单
     private String newpass;
-
+    
+    private String telephone;//手机号
+    private String passwordProtected;//密码保护问题
+    private String answer;//密码保护的答案
+    
 
 	public String getUid() {
 		return uid;
@@ -108,22 +112,45 @@ public class User {
 		this.newpass = newpass;
 	}
 
+	public String getTelephone() {
+		return telephone;
+	}
 
-	@Override
-	public String toString() {
-		return "User [uid=" + uid + ", loginname=" + loginname + ", loginpass=" + loginpass + ", email=" + email
-				+ ", status=" + status + ", activationCode=" + activationCode + ", reloginpass=" + reloginpass
-				+ ", verifyCode=" + verifyCode + ", newpass=" + newpass + ", getUid()=" + getUid() + ", getLoginname()="
-				+ getLoginname() + ", getLoginpass()=" + getLoginpass() + ", getEmail()=" + getEmail()
-				+ ", getStatus()=" + getStatus() + ", getActivationCode()=" + getActivationCode()
-				+ ", getReloginpass()=" + getReloginpass() + ", getVerifyCode()=" + getVerifyCode() + ", getNewpass()="
-				+ getNewpass() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + "]";
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+
+	public String getPasswordProtected() {
+		return passwordProtected;
+	}
+
+
+	public void setPasswordProtected(String passwordProtected) {
+		this.passwordProtected = passwordProtected;
+	}
+
+
+	public String getAnswer() {
+		return answer;
+	}
+
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+
+
+	public User() {
+		super();
+		// TODO 自动生成的构造函数存根
 	}
 
 
 	public User(String uid, String loginname, String loginpass, String email, int status, String activationCode,
-			String reloginpass, String verifyCode, String newpass) {
+			String reloginpass, String verifyCode, String newpass, String telephone, String passwordProtected,
+			String answer) {
 		super();
 		this.uid = uid;
 		this.loginname = loginname;
@@ -134,12 +161,18 @@ public class User {
 		this.reloginpass = reloginpass;
 		this.verifyCode = verifyCode;
 		this.newpass = newpass;
+		this.telephone = telephone;
+		this.passwordProtected = passwordProtected;
+		this.answer = answer;
 	}
 
 
-	public User() {
-		super();
-		// TODO 自动生成的构造函数存根
+	@Override
+	public String toString() {
+		return "User [uid=" + uid + ", loginname=" + loginname + ", loginpass=" + loginpass + ", email=" + email
+				+ ", status=" + status + ", activationCode=" + activationCode + ", reloginpass=" + reloginpass
+				+ ", verifyCode=" + verifyCode + ", newpass=" + newpass + ", telephone=" + telephone
+				+ ", passwordProtected=" + passwordProtected + ", answer=" + answer + "]";
 	}
     
     

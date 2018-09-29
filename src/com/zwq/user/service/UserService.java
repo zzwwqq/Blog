@@ -135,6 +135,11 @@ public class UserService {
 		return b;
 	}	
 	
+	public boolean ajaxValidateTelephone(String telephone) throws SQLException {
+		return userDao.ajaxValidateTelephone(telephone);		
+	}
+	
+	
 	/**
 	 * 登录功能
 	 * @param loginname
@@ -144,4 +149,36 @@ public class UserService {
 		User user = userDao.findByLoginnameAndLoginPass(loginname, loginpass);
 		return user;
 	}	
+	
+	/**
+	 * 修改密码
+	 * @throws UserException 
+	 */
+	public void updatePassword(String uid,String newPass,String oldPass) throws UserException {
+		
+		/*
+		 * 验证原密码
+		 */
+			try {
+				boolean b = userDao.findByUidAndPassword(uid, oldPass);
+			    if (!b) {
+					throw new UserException("原密码错误！");
+				}
+	     
+			    /*
+			     * 原密码正确时，
+			     * 修改密码
+			     */
+			    userDao.updatePassword(uid, newPass);   
+			} catch (SQLException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+		 
+	}
+	
+	
+	
+	
+	
 }

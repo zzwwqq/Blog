@@ -75,6 +75,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td><label id = "emailError" class = "errorClass">${errors.emailError}</label></td>
 				</tr>
 				<tr>
+					<td class = "tdText">手机号：</td>
+					<td class = "tdInput"><input class = "inputClass" type = "text" name = "telephone" id = "telephone" value = "${userForm.telephone }"/></td>
+					<td><label id = "telephoneError" class = "errorClass">${errors.telephoneError}</label></td>
+				</tr>
+				<tr>
+					<td class = "tdText">密码保护问题：</td>
+					<td class = "tdInput">
+					<select name = "passwordProtected" class = "passwordProtected">
+					<optgroup label="亲属">
+					<option name = "father">您的父亲叫什么名字？</option>
+					<option name = "mather">您的母亲叫什么名字？</option>
+					<option name = "grandfather">您的爷爷叫什么名字？</option>
+					<option name = "grandmother">您的奶奶叫什么名字？</option>
+					</optgroup>
+					<optgroup label="爱好">
+					<option name = "sport" selected="selected">您最喜欢的运动？</option>
+					<option name = "idol">您最喜欢的偶像</option>
+					</optgroup>
+					<optgroup label="回忆">
+					<option name = "teacher">您最难忘的一位老师？</option>
+					<option name = "student">您最难忘的一位小学同学？</option>                   
+					<option name = "movie">您最难忘的一部电影？</option>                   
+					</optgroup>
+					</select>
+					</td>
+					<td><label id = "passwordProtectedError" class = "errorClass">${errors.passwordProtectedError}</label></td>
+				</tr>
+				<tr>
+					<td class = "tdText">您的答案：</td>
+					<td class = "tdInput"><input class = "inputClass" type = "text" name = "answer" id = "answer" value = "${userForm.answer }"/></td>
+					<td><label id = "answerError" class = "errorClass"></label></td>
+				</tr>
+				
+				<tr>
 					<td class = "tdText">图形验证码：</td>
 					<td ><input class = "inputClass" type = "text" name = "verifyCode" id = "verifyCode" value = "${userForm.verifyCode }"></td>
 					<td><label id = "verifyCodeError" class = "errorClass">${errors.verifyCodeError}</label></td>

@@ -82,7 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        />	
     	            <img title="点击"  onclick="javascript:refresh(this);" src="VerifyCodeServlet"/>
     	            <br/>
-    	            <p class="hereregister">如果您还没有注册，请单击<a href="/blog/jsps/user/regist.jsp" class="hereregister1">这里</a>注册！<a href="found_password.jsp" class="fondpassword">忘记密码？</a> </p>
+    	            <p class="hereregister">如果您还没有注册，请单击<a href="/blog/jsps/user/regist.jsp" class="hereregister1">这里</a>注册！<a href="findpassword.jsp" class="fondpassword">忘记密码？</a> </p>
 					<input type="submit" value="登录" class="signin" /><input type="reset" value="重置" class="reset"/>									
 				<!-- 脱离文档流 -->
 			</form>

@@ -57,6 +57,12 @@ $(function() {
 		if (!validateEmail()) {
 			boolValue = false;
 		}
+		if(!validateTelephone()) {
+			boolValue = false;
+		}
+		if(!validateAnswer()){
+			boolValue = false;
+		}
 		if (!validateVerifyCode()) {
 			boolValue = false;
 		}
@@ -232,13 +238,68 @@ function validateEmail() {
 				showError($("#" + id + "Error"));
 				return false;
 			} else{
-				return true;
-				
+				return true;				
 			}
 		}
 	});
 	return true;
 }
+
+/**
+ * 校验手机号
+ */
+function validateTelephone() {
+	var id = "telephone";
+	var value = $("#"+id).val();//获取表单中的value值
+	if(!value){
+		$("#"+id+"Error").text("手机号不能为空！");
+		showError($("#"+id+"Error"));
+		return false;
+	} 
+	if(!/^([0-9]{11})$/.test(value)){
+		$("#"+id+"Error").text("手机号格式错误,必须为数字0-9,长度为11位！");
+		showError($("#"+id+"Error"));
+		return false;
+	}
+	
+	$.ajax({
+		url:"ajaxValidateTelephone.do",
+		data:{
+			method:"ajaxValidateTelephone",
+			telephone:value			
+		},
+		type:"POST",
+		dataType:"json",
+		async:false,
+		cache:false,
+		success:function(result){
+			if(!result){
+				$("#"+id+"Error").text("手机号已被注册!");
+				showError($("#"+id+"Error"));
+				return false;
+			}
+			return true;
+		}
+	});
+	return true;	
+}
+
+
+/**
+ * 密保答案校验
+ */
+function validateAnswer() {
+	var id = "answer";
+	var value = $("#"+id).val();
+	if(!value) {
+		$("#"+id+"Error").text("答案不能为空!");
+		showError($("#"+id+"Error"));
+		return false;
+	}
+	return true;
+}
+
+
 
 /**
  * 校验验证码
@@ -276,8 +337,7 @@ function validateVerifyCode() {
 				$("#" + id + "Error").text("验证码错误！");
 				showError($("#" + id + "Error"));
 				return false;
-			} else{
-				
+			} else{				
 				return true;
 			}
 				

@@ -6,6 +6,7 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
+import com.sun.org.apache.bcel.internal.generic.Select;
 import com.zwq.user.domain.User;
 import cn.itcast.jdbc.TxQueryRunner;
 
@@ -18,8 +19,8 @@ public class UserDao {
      * @throws SQLException
      */
   public void add(User user) throws SQLException {
-	  String sql = "insert into users values(?,?,?,?,?,?)";
-	  Object[] params = {user.getUid(),user.getLoginname(),user.getLoginpass(),user.getEmail(),user.getStatus(),user.getActivationCode()};
+	  String sql = "insert into users values(?,?,?,?,?,?,?,?,?)";
+	  Object[] params = {user.getUid(),user.getLoginname(),user.getLoginpass(),user.getEmail(),user.getStatus(),user.getActivationCode(),user.getTelephone(),user.getPasswordProtected(),user.getAnswer()};
 	  qr.update(sql, params);
   }
     
@@ -51,6 +52,16 @@ public class UserDao {
 	  boolean b = number.intValue() == 0;
 	  return b;
   }   
+  
+  public boolean ajaxValidateTelephone(String telephone) throws SQLException {
+	  String sql = "select count(1) from users where telephone =?";
+	  Number number = (Number)qr.query(sql, new ScalarHandler(),telephone);
+	  boolean b = number.intValue() == 0;
+	  return b;
+  }
+  
+  
+  
   
   /**
    * 通过激活码查询
@@ -91,6 +102,33 @@ public class UserDao {
 	  return user;
 	  
   }
+  
+  /**
+   * 
+   * @param uid
+   * @param oldpass
+   * @return
+ * @throws SQLException 
+   */
+  public boolean findByUidAndPassword(String uid,String oldpass) throws SQLException {
+	  String sql = "select count(*) from users where uid=? and loginpass=?";
+	  Number number = (Number) qr.query(sql, new ScalarHandler(),uid,oldpass);
+	  return number.intValue()>0;	  
+  }
  
+  /**
+   * 修改密码
+   * @param uid
+   * @param password
+ * @throws SQLException 
+   */
+  public void updatePassword(String uid, String newPassword) throws SQLException {
+	  String sql = "update users set loginpass =? where uid=?";
+	  qr.update(sql, newPassword,uid);
+  }
+  
+  
+  
+  
   
 }
