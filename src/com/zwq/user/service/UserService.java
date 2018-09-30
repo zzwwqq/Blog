@@ -2,12 +2,18 @@ package com.zwq.user.service;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import javax.mail.Session;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpSession;
+
 import com.zwq.user.dao.UserDao;
 import com.zwq.user.domain.User;
 import com.zwq.user.service.exception.UserException;
+import com.zwq.user.service.shortmessage.SendShortMessage;
+
 import cn.itcast.commons.CommonUtils;
 import cn.itcast.mail.Mail;
 import cn.itcast.mail.MailUtils;
@@ -178,7 +184,65 @@ public class UserService {
 	}
 	
 	
+	/**
+	 * 找回密码
+	 */
+	public void findPassword(User userForm) {
+		/*
+		 * 发送携带了用户密码的短信到用户手机	
+		 */
+		
+		User user = null;
+		try {
+			//此处user一定不为空，因为Servlet层验证通过后才执行此方法
+			user = userDao.findByloginnameAndTelephoneAndAnswer(userForm.getLoginname(), userForm.getTelephone(), userForm.getAnswer());
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		String telephone = userForm.getTelephone();
+		SendShortMessage.getCode(telephone,user.getLoginpass());	
+	}
 	
-	
-	
+	/**
+	 * 找回密码验证
+	 * @return
+	 */
+	public Map<String,String> validatefindPassword(User userForm,HttpSession session) {
+		Map<String, String> errors = new HashMap<String, String>();
+		String loginname = userForm.getLoginname();
+		String telephone = userForm.getTelephone();
+		String answer = userForm.getAnswer();
+		String verifyCode = userForm.getVerifyCode();
+		String vCode = (String) session.getAttribute("vCode");
+		
+		/*
+		 * 非空校验
+		 */
+		if (loginname == null || loginname.trim().isEmpty()) {
+			errors.put("loginnameError", "用户名不能为空！");
+		}
+		if (telephone == null || telephone.trim().isEmpty()) {
+			errors.put("telephoneError", "手机号不能为空！");
+		}
+		if (answer == null || answer.trim().isEmpty()) {
+			errors.put("answerError", "密保答案不能为空！");
+		}
+		if (verifyCode == null || verifyCode.trim().isEmpty()) {
+			errors.put("verifyCodeError", "验证码不能为空！");
+		} 
+		if (!verifyCode.equalsIgnoreCase(vCode)) {
+			errors.put("verifyCodeError", "验证码错误!");
+		}		
+		try {
+			User user = userDao.findByloginnameAndTelephoneAndAnswer(loginname, telephone, answer);
+			if (user == null) {
+				errors.put("loginnameError", "用户信息错误!");
+			} 
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		return errors;	
+	}	
 }

@@ -6,14 +6,12 @@ import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import com.zwq.user.domain.User;
 import com.zwq.user.service.UserService;
 import com.zwq.user.service.exception.UserException;
@@ -493,5 +491,38 @@ public class UserServlet extends HttpServlet{
 		 */
 		response.getWriter().print(b);
 	}
+	
+	/**
+	 * 找回密码
+	 * @throws IOException 
+	 * @throws ServletException 
+	 */
+	private void findPassword(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		/*
+		 * 封装表单数据
+		 */
+		User userForm = CommonUtils.toBean(request.getParameterMap(), User.class);
 		
+		/*
+		 * 校验
+		 */
+		Map<String, String>errors = userService.validatefindPassword(userForm, request.getSession());
+		if (errors.size() > 0) {
+			request.setAttribute("userForm", userForm);
+			request.setAttribute("errors", errors);
+			request.getRequestDispatcher("/jsps/user/findPassword.jsp").forward(request, response);;
+			return;
+		} 
+		
+		/*
+		 * 校验通过,调用service层方法，发送短信
+		 * 保存成功信息，转发到信息板
+		 */
+		userService.findPassword(userForm);
+		request.setAttribute("code", "success");
+		request.setAttribute("msg", "短信已发送，请注意查收！");
+		request.getRequestDispatcher("/jsps/msg.jsp").forward(request, response);
+		return;
+	}
+			
 }

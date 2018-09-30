@@ -1,12 +1,9 @@
 package com.zwq.user.dao;
 
 import java.sql.SQLException;
-
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
-
-import com.sun.org.apache.bcel.internal.generic.Select;
 import com.zwq.user.domain.User;
 import cn.itcast.jdbc.TxQueryRunner;
 
@@ -104,7 +101,7 @@ public class UserDao {
   }
   
   /**
-   * 
+   * 用于修改密码
    * @param uid
    * @param oldpass
    * @return
@@ -127,8 +124,14 @@ public class UserDao {
 	  qr.update(sql, newPassword,uid);
   }
   
-  
-  
-  
-  
+  /**
+   * 找回密码
+ * @throws SQLException 
+   */
+  public User findByloginnameAndTelephoneAndAnswer(String loginname,String telephone,String answer) throws SQLException {
+	String sql = "select * from users where loginname=? And telephone =? And answer=?";
+	Object[]params=new Object[] {loginname,telephone,answer};
+	return qr.query(sql, new BeanHandler<User>(User.class),params);  
+  }
+   
 }
