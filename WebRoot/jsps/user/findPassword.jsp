@@ -83,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<tr> 
 					<td class = "tdText"></td>
              
-			<td class = "tdInput"><input  id = "submitBtn" type = "image" src = "<c:url value = '/images/regist1.jpg'/>" /></td>
+			     <td class = "tdInput"><div class = spanDiv><input type = "submit" = "findPasswordClass" id = "findPassword" value= "找回密码"></div></td>
 					
 					<td></td>
 				</tr>
