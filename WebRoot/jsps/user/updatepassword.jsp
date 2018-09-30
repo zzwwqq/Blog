@@ -20,11 +20,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="description" content="This is my page">
 
 <!-- 导入css文件 -->
-<link rel="stylesheet" type="text/css" href="<c:url value = '/css/user/updatepassword.css'/>">
+<link rel="stylesheet" type="text/css" href="<c:url value = '/css/user/updatePassword.css'/>">
 <!-- 导入JQuery -->
 <script type="text/javascript" src = "<c:url value = '/js/jquery-3.2.1.min.js'/>"></script>
 <!-- 导入JS文件 -->
-<script type="text/javascript" src = "<c:url value = '/js/user/updatepassword.js'/>"></script>
+<script type="text/javascript" src = "<c:url value = '/js/user/updatePassword.js'/>"></script>
 
   <script type="text/javascript" charset="UTF-8">
   function _change(){
@@ -32,7 +32,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   }
   </script>
-  
   
   
   </head>

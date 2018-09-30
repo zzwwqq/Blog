@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  Object c = (Object)request.getAttribute("code");
 
  %>
-    <a href="jsps/user/updatepassword.jsp?user=<%=request.getSession().getAttribute("sessionUser")%>">修改密码</a>
+    <a href="jsps/user/updatePassword.jsp?user=<%=request.getSession().getAttribute("sessionUser")%>">修改密码</a>
     <a href = "jsps/user/regist.jsp">注册</a>
     <a href = "jsps/user/login.jsp">登录</a>
     <a href = "index.jsp?a=123&b='qq'&c=<%=request.getAttribute("code")%>">状态</a>
