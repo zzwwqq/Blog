@@ -2,6 +2,7 @@ package com.zwq.blog.web.servlet;
 
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -12,12 +13,30 @@ import javax.servlet.http.HttpServletResponse;
 import com.zwq.blog.domain.Blog;
 import com.zwq.blog.service.BlogService;
 import com.zwq.blog.service.exception.BlogException;
+import com.zwq.category.domain.Category;
 
 import cn.itcast.commons.CommonUtils;
 import cn.itcast.servlet.BaseServlet;
 
 public class BlogServlet extends BaseServlet {
 	private BlogService blogService = new BlogService();
+	
+	public void preAddBlog(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		try {
+			List<Category> categoryList = blogService.getCategoryList();
+			request.setAttribute("categoryList", categoryList);
+			request.getRequestDispatcher("/jsps/blog/addBlog.jsp").forward(request, response);
+			return;
+		
+		} catch (BlogException e) {
+			request.setAttribute("msg", e.getMessage());
+			request.setAttribute("code", "error");
+			request.getRequestDispatcher("/jsps/blog/blogMsg.jsp").forward(request, response);
+			return;
+		}
+	}
+	
+	
 	
 	public void addBlog(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		Blog formBlog = new Blog();

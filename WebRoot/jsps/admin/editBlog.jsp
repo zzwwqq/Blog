@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" 
 import="java.util.List" errorPage="" %>
 <%@ page import = "com.zwq.blog.domain.Blog" %>
+<%@ page import = "com.zwq.category.domain.Category" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
@@ -21,6 +22,8 @@ http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
  <script type="text/javascript" >
   <%
     Blog blog = (Blog)request.getAttribute("blog");
+    List<Category> categoryList = (List<Category>)request.getAttribute("categoryList");
+    
    %> 
    		$(function(){
         selected_option = <%=blog.getCategory_id() %>
@@ -54,8 +57,11 @@ oFCKeditor.ReplaceTextarea() ;
       <td>类别：</td>
       <td><label for="select"></label>
         <select name="category_id" id="select">
-          <option value = "1">心情故事</option>
-          <option value = "2">旅游故事</option>
+         <%
+        	for(Category category:categoryList) {       	   
+         %>
+          <option value = "<%=category.getCid()%>"><%=category.getCname() %></option>
+          <%} %>
       </select></td>
     </tr>
     <tr>

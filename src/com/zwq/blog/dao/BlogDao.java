@@ -9,6 +9,7 @@ import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import com.zwq.blog.domain.Blog;
+import com.zwq.category.domain.Category;
 
 import cn.itcast.jdbc.TxQueryRunner;
 
@@ -21,6 +22,11 @@ public class BlogDao {
 		qr.update(sql,params);
 	}
 	
+	public List<Category> findCategoryList() throws SQLException {
+		String sql = "select * from category order by clevel desc,cid desc";
+		 List<Category>categoryList = qr.query(sql, new BeanListHandler<Category>(Category.class));
+		 return categoryList;
+	}
 	
 	public Blog findByBidGetBlog(int bid) throws SQLException {
 		String sql = "select * from blog where bid =?";

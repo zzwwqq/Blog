@@ -8,6 +8,7 @@ import java.util.List;
 import com.zwq.blog.dao.BlogDao;
 import com.zwq.blog.domain.Blog;
 import com.zwq.blog.service.exception.BlogException;
+import com.zwq.category.domain.Category;
 
 public class BlogService {
 	private BlogDao blogDao = new BlogDao();
@@ -15,6 +16,20 @@ public class BlogService {
 	public void addBlog(Blog blog) throws SQLException {
 		blog.setCreated_time(new Timestamp(new Date().getTime()) );
 		blogDao.addBlog(blog.getTitle(), blog.getContent(), blog.getCategory_id(), blog.getCreated_time());
+	}
+	
+	public List<Category> getCategoryList() throws BlogException {
+		
+		try {
+			List<Category>categoryList = blogDao.findCategoryList();
+			if (categoryList == null || categoryList.size() < 0) {
+				throw new BlogException("查询所有分类失败！");
+			} else {
+				return categoryList;
+			}
+		} catch (SQLException e) {
+			throw new BlogException("查询所有分类失败！");
+		}
 	}
 	
 	public Blog getBlog(int bid) throws BlogException {

@@ -1,19 +1,12 @@
 package com.zwq.category.service;
-
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
-
-import com.zwq.blog.domain.Blog;
 import com.zwq.blog.service.exception.BlogException;
 import com.zwq.category.dao.CategoryDao;
 import com.zwq.category.domain.Category;
 
 public class CategoryService {
 	private CategoryDao categoryDao = new CategoryDao();
-	
-	
 
 	public void addCategory(Category category) throws SQLException {
 		categoryDao.addCategory(category.getCname(), category.getClevel());;

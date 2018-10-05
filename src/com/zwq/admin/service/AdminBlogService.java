@@ -8,6 +8,7 @@ import java.util.List;
 import com.zwq.admin.dao.AdminBlogDao;
 import com.zwq.blog.domain.Blog;
 import com.zwq.blog.service.exception.BlogException;
+import com.zwq.category.domain.Category;
 
 public class AdminBlogService {
 	private AdminBlogDao adminBlogDao = new AdminBlogDao();
@@ -27,6 +28,19 @@ public List<Blog> getBlogList() throws BlogException {
 		}
 	}
 	
+public List<Category> getCategoryList() throws BlogException {
+	
+	try {
+		List<Category>categoryList = adminBlogDao.findCategoryList();
+		if (categoryList == null || categoryList.size() < 0) {
+			throw new BlogException("查询所有分类失败！");
+		} else {
+			return categoryList;
+		}
+	} catch (SQLException e) {
+		throw new BlogException("查询所有分类失败！");
+	}
+}
 
 	public boolean deleteBlog(int bid) throws BlogException {
 		try {

@@ -1,5 +1,9 @@
+<%@page import="java.util.List"%>
+<%@page import="com.zwq.category.domain.Category"%>
 <%@ page contentType="text/html; charset=utf-8" language="java" 
 import="java.sql.*" errorPage="" %>
+
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
@@ -31,6 +35,11 @@ oFCKeditor.ReplaceTextarea() ;
 
 </head>
 <body>
+<%
+  List<Category>categoryList = (List<Category>)request.getAttribute("categoryList");
+
+ %>
+
 <p>请输入您的博文内容：</p>
 <p><a href = "/blog/BlogServlet?method=getBlogList">查看博文内容</a></p>
 <form id="form1" name="form1" method="post" action="<c:url value = '/BlogServlet'/>">
@@ -44,8 +53,11 @@ oFCKeditor.ReplaceTextarea() ;
       <td>类别：</td>
       <td><label for="select"></label>
         <select name="category_id" id="select">
-          <option value = "1">心情故事</option>
-          <option value = "2">旅游故事</option>
+        <%
+        	for(Category category:categoryList) {       	   
+         %>       
+          <option value = "<%=category.getCid()%>"><%=category.getCname() %></option>
+          <%} %>
       </select></td>
     </tr>
     <tr>

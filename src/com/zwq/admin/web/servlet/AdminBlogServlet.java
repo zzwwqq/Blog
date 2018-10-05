@@ -1,6 +1,8 @@
 package com.zwq.admin.web.servlet;
 
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -10,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.zwq.admin.service.AdminBlogService;
 import com.zwq.blog.domain.Blog;
 import com.zwq.blog.service.exception.BlogException;
+import com.zwq.category.domain.Category;
+
 import cn.itcast.commons.CommonUtils;
 import cn.itcast.servlet.BaseServlet;
 
@@ -59,9 +63,12 @@ public class AdminBlogServlet extends BaseServlet {
 		Blog blog=null;
 		Blog formBlog = new Blog();
 		formBlog.setBid(bid);
+		List<Category> categoryList =null;
 		try {
+			categoryList = adminBlogService.getCategoryList();
 			blog = adminBlogService.getBlog(bid);
 			request.setAttribute("blog", blog);
+			request.setAttribute("categoryList", categoryList);
 			request.getRequestDispatcher("/jsps/admin/editBlog.jsp").forward(request, response);
 			return;
 		} catch (BlogException e) {		
