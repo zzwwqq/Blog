@@ -10,13 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.zwq.admin.service.AdminBlogService;
 import com.zwq.blog.domain.Blog;
 import com.zwq.blog.service.exception.BlogException;
-
 import cn.itcast.commons.CommonUtils;
 import cn.itcast.servlet.BaseServlet;
 
 public class AdminBlogServlet extends BaseServlet {
 	private AdminBlogService adminBlogService = new AdminBlogService();
-	
 	
 	public void getBlogList(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 		try {
@@ -66,8 +64,7 @@ public class AdminBlogServlet extends BaseServlet {
 			request.setAttribute("blog", blog);
 			request.getRequestDispatcher("/jsps/admin/editBlog.jsp").forward(request, response);
 			return;
-		} catch (BlogException e) {
-			
+		} catch (BlogException e) {		
 			request.setAttribute("msg", "修改失败！");
 			request.setAttribute("code", "error");
 			request.setAttribute("formBlog", formBlog);
@@ -78,9 +75,6 @@ public class AdminBlogServlet extends BaseServlet {
 
 	public void updateBlog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Blog formBlog = CommonUtils.toBean(request.getParameterMap(), Blog.class);
-//		String tempBid = request.getParameter("bid");
-//		int bid = Integer.parseInt(tempBid);
-//		FormBlog.setBid(bid);
 		try {
 			boolean boolean1 = adminBlogService.updateBlog(formBlog);
 			if (boolean1) {

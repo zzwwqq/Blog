@@ -35,6 +35,11 @@
     <servlet-name>AdminBlogServlet</servlet-name>
     <servlet-class>com.zwq.admin.web.servlet.AdminBlogServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>CategoryServlet</servlet-name>
+    <servlet-class>com.zwq.category.web.servlet.CategoryServlet</servlet-class>
+  </servlet>
+
 
 
   <servlet-mapping>
@@ -48,6 +53,10 @@
   <servlet-mapping>
     <servlet-name>AdminBlogServlet</servlet-name>
     <url-pattern>/AdminBlogServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CategoryServlet</servlet-name>
+    <url-pattern>/CategoryServlet</url-pattern>
   </servlet-mapping>
   
 
