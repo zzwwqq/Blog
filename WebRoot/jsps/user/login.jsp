@@ -32,6 +32,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			obj.src="/blog/VerifyCodeServlet?a="+new Date().getTime();
 		}
 	</script>
+	
+	<script type="text/javascript"  charset="utf-8"
+    src="http://connect.qq.com/qc_jssdk.js" 
+    data-appid="APPID" 
+    data-redirecturi="REDIRECTURI" 
+    >
+</script>
+<script type="text/javascript">
+    QC.Login({
+       btnId:"qqLoginBtn"    //插入按钮的节点id
+});
+</script>	
+	
+	
 </head>
 
 <body>
@@ -82,7 +96,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        />	
     	            <img title="点击"  onclick="javascript:refresh(this);" src="VerifyCodeServlet"/>
     	            <br/>
-    	            <p class="hereregister">如果您还没有注册，请单击<a href="jsps/user/regist.jsp" class="hereregister1">这里</a>注册！<a href="jsps/user/findPassword.jsp" class="fondpassword">忘记密码？</a> </p>
+    	            <div>
+    	               <div><span id = "otherLoginSpan">其他账号登录：</span>
+    	               <span id="qqLoginBtn"></span>
+    	               <img alt="QQ" class = "qqClass" src="images/qq/bt_blue_24X24.png" onclick="toLogin()">
+    	               <img alt="微信" class = "wechatClass" src="images/wechat/icon32_wx_logo.png">
+    	               <img alt="微博" class = "weiboClass" src="images/weibo/weibo.png">
+    	               <a href="jsps/user/regist.jsp" class="hereregister1">注册</a><a href="jsps/user/findPassword.jsp" class="fondpassword">忘记密码？</a>
+    	               
+    	               </div>
+    	            </div>
+    	            
 					<input type="submit" value="登录" class="signin" /><input type="reset" value="重置" class="reset"/>									
 				<!-- 脱离文档流 -->
 			</form>

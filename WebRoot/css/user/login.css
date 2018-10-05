@@ -247,23 +247,57 @@ label.lbl3 {
 	color: #dd3e3e;
 	font-size: 22px;
 	outline: none;
-	border: none;
+	border: inherit;
 	font-weight: 100;
 	margin-bottom: 0em;
 }
 
-.hereregister {
-	font: bold 18px 微软雅黑, sans-serif;
-	color: green;
+.qqClass{
+	
 }
 
-.hereregister1 {
-	/*font: italic bold 18px 华文行楷, sans-serif;*/
-	font: bold 18px 微软雅黑, sans-serif;
+
+.wechatClass{
+	display:inline-block;
+	width:24px;
+	height:24px;
+	padding:0px 3px 0px 3px;
+}
+
+
+.weiboClass{
+	display:inline-block;
+	width:24px;
+	height:24px;
+	margin:0px 8px 0px 0px;
+}
+
+
+
+.registerlabel{
+	font-weight: 50px;
 	color: yellowgreen;
+	font-size: 18px;
 }
 
-.hereregister .hereregister1:hover {
+
+
+.hereregister1 {	
+	/*font: bold 18px 微软雅黑, sans-serif;
+	color: yellowgreen;*/
+	font: bold 18px 微软雅黑, sans-serif;	
+	color: yellowgreen;
+	margin:0px 5px 0px 3px;
+}
+
+#otherLoginSpan{
+	font: bold 18px 微软雅黑, sans-serif;	
+	color: yellowgreen;
+	margin:0px 5px 0px 3px;
+}
+
+
+.hereregister1:hover {
 	color: yellow;
 }
 
@@ -275,6 +309,8 @@ label.lbl3 {
 .fondpassword:hover {
 	color: yellow;
 }
+
+
 
 a {
 	text-decoration: none;

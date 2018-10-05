@@ -27,9 +27,27 @@
     <servlet-name>VerifyCodeServlet</servlet-name>
     <servlet-class>cn.itcast.vcode.servlet.VerifyCodeServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>BlogServlet</servlet-name>
+    <servlet-class>com.zwq.blog.web.servlet.BlogServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AdminBlogServlet</servlet-name>
+    <servlet-class>com.zwq.admin.web.servlet.AdminBlogServlet</servlet-class>
+  </servlet>
+
+
   <servlet-mapping>
     <servlet-name>VerifyCodeServlet</servlet-name>
     <url-pattern>/VerifyCodeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>BlogServlet</servlet-name>
+    <url-pattern>/BlogServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AdminBlogServlet</servlet-name>
+    <url-pattern>/AdminBlogServlet</url-pattern>
   </servlet-mapping>
   
 
