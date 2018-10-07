@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import = "com.zwq.blog.domain.Blog" %>
+<%@ page import = "com.zwq.comment.domain.Comment" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -78,9 +78,10 @@ a:hover {color:#FF6600; text-decoration: underline;}
 		<br/>
 		<br/>
 		 <%
-		 int bid = (int)request.getAttribute("bid");
+		 Comment comment = (Comment)request.getAttribute("formComment");
 		 %>
-		<span style="margin-left: 50px;"><a target="_top" href="/blog/BlogServlet?method=getBlog&bid=<%=bid %>">返回</a></span>
+		<span style="margin-left: 50px;"><a target="_top" href="/blog/CommentServlet?method=getCommentList">查看评论信息</a></span>
+	  	<span style="margin-left: 50px;"><a target="_top" href="/blog/CommentServlet?method=preUpdateComment&id=<%=comment.getId() %>">修改评论信息</a></span>  
 	  </div>
 	</div>
 </div>
