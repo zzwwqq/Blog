@@ -39,6 +39,11 @@
     <servlet-name>CategoryServlet</servlet-name>
     <servlet-class>com.zwq.category.web.servlet.CategoryServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>CommentServlet</servlet-name>
+    <servlet-class>com.zwq.comment.web.servlet.CommentServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -57,6 +62,10 @@
   <servlet-mapping>
     <servlet-name>CategoryServlet</servlet-name>
     <url-pattern>/CategoryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CommentServlet</servlet-name>
+    <url-pattern>/CommentServlet</url-pattern>
   </servlet-mapping>
   
 
