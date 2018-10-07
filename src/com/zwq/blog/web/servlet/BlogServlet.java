@@ -13,6 +13,9 @@ import com.zwq.blog.domain.Blog;
 import com.zwq.blog.service.BlogService;
 import com.zwq.blog.service.exception.BlogException;
 import com.zwq.category.domain.Category;
+import com.zwq.comment.domain.Comment;
+import com.zwq.comment.service.CommentService;
+import com.zwq.comment.service.exception.CommentException;
 
 import cn.itcast.commons.CommonUtils;
 import cn.itcast.servlet.BaseServlet;
@@ -80,13 +83,21 @@ public class BlogServlet extends BaseServlet {
 		int bid = Formblog.getBid();
 		try {
 			Blog blog = blogService.getBlog(bid);
+			List<Comment> commentList = new CommentService().getCommentList(Formblog.getBid());
 			request.setAttribute("blog", blog);
+			request.setAttribute("commentList", commentList);
 			request.getRequestDispatcher("/jsps/blog/displayBlog.jsp").forward(request, response);
 			return;
 		} catch (BlogException e) {
 			request.setAttribute("msg", e.getMessage());
 			request.setAttribute("code", "error");
 			request.getRequestDispatcher("/jsps/msg.jsp").forward(request, response);
+			return;
+		} catch (CommentException e) {
+			//request.setAttribute("msg", e.getMessage());
+			//request.setAttribute("code", "error");
+			request.setAttribute("bid",bid);
+			request.getRequestDispatcher("/jsps/comment/commentMsg.jsp").forward(request, response);
 			return;
 		}
 		

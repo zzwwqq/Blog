@@ -13,7 +13,7 @@ import cn.itcast.jdbc.TxQueryRunner;
 public class CommentDao {
 	private QueryRunner qr = new TxQueryRunner();
 	
-	public List<Comment>findCommentListByBlog_Id(String blog_id) throws SQLException {
+	public List<Comment>findCommentListByBlog_Id(int blog_id) throws SQLException {
 		String sql = "select * from comment where blog_id =?";
 		return qr.query(sql, new BeanListHandler<Comment>(Comment.class),blog_id);		
 	}
@@ -23,6 +23,13 @@ public class CommentDao {
 		Object[]params = new Object[] {comment.getBlog_id(),comment.getUsername(),comment.getContent(),comment.getCreatedtime()};
 		return qr.update(sql,params);
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

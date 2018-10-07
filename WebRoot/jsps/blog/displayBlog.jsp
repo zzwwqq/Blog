@@ -1,5 +1,7 @@
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=utf-8" language="java" import="java.sql.*" errorPage="" %>
 <%@ page import="com.zwq.blog.domain.Blog" %>
+<%@ page import="com.zwq.comment.domain.Comment" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -24,19 +26,23 @@
   </tr>
    <tr valign="top">
     <td height="265">
+    <%
+    List<Comment>commentList = (List<Comment>)request.getAttribute("commentList");
+    for(Comment comment:commentList){
     
-    <table width="200" border="1" cellspacing="1">
+     %>
+    <table width="300" border="1" cellspacing="1">
       <tr>
-        <td>评论人：郑文庆</td>
+        <td><%=comment.getUsername() %> 的评论</td>
       </tr>
       <tr>
-        <td>评论内容：我爱祖国</td>
+        <td><%=comment.getContent() %></td>
       </tr>
       <tr>
-        <td>评论时间：2018-09-09</td>
+        <td><%=comment.getCreatedtime() %></td>
       </tr>
     </table>
-     
+     <%} %>
     <p>&nbsp;</p></td>
   </tr>
   <tr valign="top">

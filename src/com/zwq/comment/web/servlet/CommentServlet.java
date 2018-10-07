@@ -21,6 +21,12 @@ public class CommentServlet extends BaseServlet {
 	public void addComment(HttpServletRequest request,HttpServletResponse response) {
 		Comment formComment = CommonUtils.toBean(request.getParameterMap(), Comment.class);	
 		formComment.setCreatedtime(new Timestamp(new Date().getTime()));
+		String username = formComment.getUsername();
+		if(username == null || username.equals("") || username.trim().isEmpty()) {
+			username = "匿名";
+			formComment.setUsername(username);
+		}
+		
 		try {
 			boolean result = commentService.addComment(formComment);
 			if (!result) {
@@ -43,6 +49,8 @@ public class CommentServlet extends BaseServlet {
 		
 		
 	}
+	
+	
 	
 	
 	

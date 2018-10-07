@@ -1,6 +1,7 @@
 package com.zwq.comment.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.zwq.comment.dao.CommentDao;
 import com.zwq.comment.domain.Comment;
@@ -22,4 +23,22 @@ public class CommentService {
 			throw new CommentException("发表评论失败！");
 		}
 	}
+	
+	
+	public List<Comment> getCommentList(int blog_id) throws CommentException {
+		try {
+			List<Comment> commentList = commentDao.findCommentListByBlog_Id(blog_id);
+			if (commentList == null) {
+				throw new CommentException("查询评论失败！");
+			}
+			return commentList;
+			
+		} catch (SQLException e) {
+			throw new CommentException("查询评论失败！");
+		}
+	}
+	
+	
+	
+	
 }
