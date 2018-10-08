@@ -9,6 +9,8 @@ import com.zwq.admin.service.AdminBlogService;
 import com.zwq.blog.domain.Blog;
 import com.zwq.blog.service.exception.BlogException;
 import com.zwq.category.domain.Category;
+import com.zwq.user.domain.User;
+import com.zwq.user.service.exception.UserException;
 
 import cn.itcast.commons.CommonUtils;
 import cn.itcast.servlet.BaseServlet;
@@ -17,6 +19,10 @@ public class AdminBlogServlet extends BaseServlet {
 	private AdminBlogService adminBlogService = new AdminBlogService();
 	
 	public void getBlogList(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		User user = (User)request.getSession().getAttribute("sessionUser");
+		if(user == null) {
+			request.getRequestDispatcher("/jsps/user/login.jsp").forward(request, response);;
+		}
 		try {
 			List<Blog> blogList = adminBlogService.getBlogList();
 			request.setAttribute("blogList", blogList);
@@ -33,6 +39,10 @@ public class AdminBlogServlet extends BaseServlet {
 	
 	
 	public void deleteBlog(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		User user = (User)request.getSession().getAttribute("sessionUser");
+		if(user == null) {
+			request.getRequestDispatcher("/jsps/user/login.jsp").forward(request, response);;
+		}
 		String tempbid = request.getParameter("bid");
 		int bid = Integer.parseInt(tempbid);
 		Blog formBlog = new Blog();
@@ -54,6 +64,10 @@ public class AdminBlogServlet extends BaseServlet {
 	
 	
 	public void preUpdateBlog(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		User user = (User)request.getSession().getAttribute("sessionUser");
+		if(user == null) {
+			request.getRequestDispatcher("/jsps/user/login.jsp").forward(request, response);;
+		}
 		String tempBid = request.getParameter("bid");
 		int bid = Integer.parseInt(tempBid);
 		Blog blog=null;
@@ -77,6 +91,10 @@ public class AdminBlogServlet extends BaseServlet {
 	}
 
 	public void updateBlog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		User user = (User)request.getSession().getAttribute("sessionUser");
+		if(user == null) {
+			request.getRequestDispatcher("/jsps/user/login.jsp").forward(request, response);;
+		}
 		Blog formBlog = CommonUtils.toBean(request.getParameterMap(), Blog.class);
 		try {
 			boolean boolean1 = adminBlogService.updateBlog(formBlog);

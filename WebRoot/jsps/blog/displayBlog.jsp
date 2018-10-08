@@ -1,19 +1,11 @@
-<%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=utf-8" language="java" import="java.sql.*" errorPage="" %>
+<%@ include file = "/jsps/header.jsp"%>
 <%@ page import="com.zwq.blog.domain.Blog" %>
 <%@ page import="com.zwq.comment.domain.Comment" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>显示博文</title>
-</head>
-
-<body>
 <%
 	Blog blog = (Blog)request.getAttribute("blog");
  %>
+ 
 <table width="945" height="524" border="0">
   <tr>
     <td align="center"><%=blog.getTitle() %></td>
@@ -31,7 +23,7 @@
     for(Comment comment:commentList){
     
      %>
-    <table width="300" border="1" cellspacing="1">
+    <table width="300" border="1" cellspacing="0.1">
       <tr>
         <td><%=comment.getUsername() %> 的评论</td>
       </tr>
@@ -42,6 +34,7 @@
         <td><%=comment.getCreatedtime() %></td>
       </tr>
     </table>
+    <br />
      <%} %>
     <p>&nbsp;</p></td>
   </tr>
@@ -70,5 +63,5 @@
     <p>&nbsp;</p></td>
   </tr>
 </table>
-</body>
-</html>
+
+<%@ include file = "/jsps/footer.jsp"%>

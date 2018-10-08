@@ -16,6 +16,7 @@ import com.zwq.category.domain.Category;
 import com.zwq.comment.domain.Comment;
 import com.zwq.comment.service.CommentService;
 import com.zwq.comment.service.exception.CommentException;
+import com.zwq.user.domain.User;
 
 import cn.itcast.commons.CommonUtils;
 import cn.itcast.servlet.BaseServlet;
@@ -24,6 +25,10 @@ public class BlogServlet extends BaseServlet {
 	private BlogService blogService = new BlogService();
 	
 	public void preAddBlog(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		User user = (User)request.getSession().getAttribute("sessionUser");
+		if(user == null) {
+			request.getRequestDispatcher("/jsps/user/login.jsp").forward(request, response);;
+		}
 		try {
 			List<Category> categoryList = blogService.getCategoryList();
 			request.setAttribute("categoryList", categoryList);
@@ -41,6 +46,10 @@ public class BlogServlet extends BaseServlet {
 	
 	
 	public void addBlog(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		User user = (User)request.getSession().getAttribute("sessionUser");
+		if(user == null) {
+			request.getRequestDispatcher("/jsps/user/login.jsp").forward(request, response);;
+		}
 		Blog formBlog = new Blog();
 		try {
 			request.setCharacterEncoding("UTF-8");
@@ -60,8 +69,7 @@ public class BlogServlet extends BaseServlet {
 					request.setAttribute("code", "error");
 					request.getRequestDispatcher("/jsps/admin/blogMsg.jsp").forward(request, response);
 					return;
-				}
-				
+				}			
 			} catch (SQLException e) {
 				request.setAttribute("formBlog", formBlog);
 				request.setAttribute("msg", "操作失败！");

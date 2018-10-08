@@ -12,6 +12,8 @@ import com.zwq.blog.service.exception.BlogException;
 import com.zwq.comment.domain.Comment;
 import com.zwq.comment.service.CommentService;
 import com.zwq.comment.service.exception.CommentException;
+import com.zwq.user.domain.User;
+
 import cn.itcast.commons.CommonUtils;
 import cn.itcast.servlet.BaseServlet;
 
@@ -50,6 +52,10 @@ public class CommentServlet extends BaseServlet {
 	}
 	
 	public void getCommentList(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		User user = (User)request.getSession().getAttribute("sessionUser");
+		if(user == null) {
+			request.getRequestDispatcher("/jsps/user/login.jsp").forward(request, response);;
+		}
 		try {
 			List<Comment> commentList = commentService.getCommentList();
 			request.setAttribute("commentList", commentList);
@@ -65,6 +71,10 @@ public class CommentServlet extends BaseServlet {
 	}
 	
 		public void deleteComment(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+			User user = (User)request.getSession().getAttribute("sessionUser");
+			if(user == null) {
+				request.getRequestDispatcher("/jsps/user/login.jsp").forward(request, response);;
+			}
 			String tempid = request.getParameter("id");
 			int id = Integer.parseInt(tempid);
 			Comment formComment = new Comment();
@@ -94,6 +104,10 @@ public class CommentServlet extends BaseServlet {
 	 * @throws IOException
 	 */
 	public void preUpdateComment(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		User user = (User)request.getSession().getAttribute("sessionUser");
+		if(user == null) {
+			request.getRequestDispatcher("/jsps/user/login.jsp").forward(request, response);;
+		}
 		String tempId = request.getParameter("id");
 		int id = Integer.parseInt(tempId);
 		try {
@@ -116,6 +130,10 @@ public class CommentServlet extends BaseServlet {
 	 * @throws IOException
 	 */
 	public void updateComment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		User user = (User)request.getSession().getAttribute("sessionUser");
+		if(user == null) {
+			request.getRequestDispatcher("/jsps/user/login.jsp").forward(request, response);;
+		}
 		Comment formComment = CommonUtils.toBean(request.getParameterMap(), Comment.class);
 		formComment.setCreatedtime(new Timestamp(new Date().getTime()));
 		

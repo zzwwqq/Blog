@@ -292,7 +292,7 @@ public class UserServlet extends HttpServlet{
 		//重定向后，request被清空，不能再获取request中的数据
 		//response.sendRedirect("/blog/index.jsp");
 		//转发
-		request.getRequestDispatcher("/jsps/main.jsp").forward(request, response);
+		request.getRequestDispatcher("/BlogServlet?method=getBlogList").forward(request, response);
 	}
 	
 	/**
@@ -524,5 +524,19 @@ public class UserServlet extends HttpServlet{
 		request.getRequestDispatcher("/jsps/msg.jsp").forward(request, response);
 		return;
 	}
-			
+	
+	
+	/**
+	 * 退出功能
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public void quit(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException {
+		//手动销毁session
+		request.getSession().invalidate();
+		request.getRequestDispatcher("/jsps/user/login.jsp").forward(request, response);
+	}			
 }

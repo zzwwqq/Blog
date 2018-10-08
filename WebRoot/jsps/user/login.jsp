@@ -119,7 +119,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			Copyright &copy; 2018. zwq All rights reserved.please visit github
 			for more information. <a href="https://github.com/" title="zwqgithub"
 				target="_blank">GitHub</a>
-		<p />
-	</div>
-</body>
-</html>
+		<p />	
+<%@include file="/jsps/footer.jsp" %>
+
+
+
+
+
