@@ -3,6 +3,8 @@
 <%@ include file="/jsps/header.jsp"%>
 <%@ page import="com.zwq.comment.domain.Comment"%>
 
+<h2>评论管理</h2>
+<center>
 <table id="tab">
 <tr>
    <th>评论编号</th>
@@ -24,4 +26,5 @@ for(Comment comment:commentList) {
 			</tr>
 <%} %>
 		</table>
+		</center>
 <%@ include file = "/jsps/footer.jsp" %>

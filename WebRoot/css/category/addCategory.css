@@ -37,7 +37,8 @@ html,body{
 	height: 230px;
 	border-left: 1px solid #d0d0d0;
 	border-bottom: 1px solid #d0d0d0;
-	border-right: 1px solid #d0d0d0;	
+	border-right: 1px solid #d0d0d0;
+	margin: 0 auto 0 auto;	
 }
 
 .tdText {
@@ -61,7 +62,7 @@ html,body{
 
 #tableForm {
 	/*设置表格每行的高度*/
-	line-height: 50px;
+	line-height: 50px;	
 }
 .inputClass {
 	width: 240px;

@@ -9,6 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <title></title>
+<base href="<%=basePath%>">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8">
 <link href="/blog/css/header/style.css" type="text/css" rel="stylesheet"> 
 <script type="text/javascript" src = "<c:url value = '/js/jquery-3.2.1.min.js'/>"></script>

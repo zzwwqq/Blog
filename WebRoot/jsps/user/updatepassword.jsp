@@ -1,25 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="/jsps/header.jsp"%>
 
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-  <head>
-    <base href="<%=basePath%>">
-    
-    <title>修改密码</title>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-
-<!-- 导入css文件 -->
 <link rel="stylesheet" type="text/css" href="<c:url value = '/css/user/updatePassword.css'/>">
 <!-- 导入JQuery -->
 <script type="text/javascript" src = "<c:url value = '/js/jquery-3.2.1.min.js'/>"></script>
@@ -32,14 +13,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   }
   </script>
-  
-  
-  </head>
-<body>
-<div id = "titleDiv" class = "titleClass"><span>修改密码</span></div> 	
+<h2>修改密码</h2>
+<center>
 <div id = "mainDiv">
  <form id = "updatePasswordForm" action="updatePassword.do" method = "POST">
-    <table>
+    <table style="margin:0 auto 0 auto">
     <tr>
     <td class = "tdClass">原密码：</td>
      <td><input type = "password" name = "loginpass" id = "loginpass" class = "inputClass" value = "${userForm.loginpass }"/></td>
@@ -76,13 +54,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </tr>  
     </table>
  </form>
-</div>
-<%--
- <div>
- <h2><%=request.getParameter("user") %></h2>
- <hr/>
- <h2><%=session.getAttribute("sessionUser") %></h2>
- </div>
-  --%>
-</body>
-</html>
+     </center>
+<%@include file="/jsps/footer.jsp" %>

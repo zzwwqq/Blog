@@ -2,6 +2,8 @@
 	import="java.util.List" errorPage=""%>
 <%@ page import="com.zwq.blog.domain.Blog"%>
 <%@ include file="/jsps/header.jsp"%>
+<h2>博文管理</h2>
+<center>
 <table id="tab">
 <tr>
    <th>博文编号</th>
@@ -23,5 +25,6 @@
 			</tr>
 			<%} %>			
 		</table>	
+		</center>
 <%@include file="/jsps/footer.jsp" %>
 		

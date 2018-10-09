@@ -30,11 +30,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
  
 <body>
+
 	<div id = "divMain">
+	<center>
 		<div id = "divTitle">
 			<span style="text-align: center;display:block;" id = "spanTitle">添加博客分类</span>
 		</div>
+		</center>
+		
 		<div id = "divBody">
+		<center>
 		<form id = "addCategory" action="CategoryServlet" method = "post">
 		<input type = "hidden" name = "method" value = "addCategory"/>
 			<table id = "tableForm">
@@ -59,7 +64,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 			</table>
 			</form>
+				</center>
 		</div>
+		
 	</div>
+
 </body>
 </html>
