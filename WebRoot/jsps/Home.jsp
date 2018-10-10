@@ -1,43 +1,58 @@
-<%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.List" errorPage="" %>
-<%@ include file = "/jsps/header.jsp" %>
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.*" errorPage="" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import = "com.zwq.blog.domain.Blog" %>
+<%@ page import = "com.zwq.category.domain.Category" %>
+<%@ page import = "com.zwq.comment.domain.Comment" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>zwq的博客</title>
 <link rel="stylesheet" type="text/css" href="/blog/css/display/style.css" />
+</head>
+<body>
+<div id="container">	
+	<div id="banner">
+		<h1><a href="/blog">zwq的博客</a></h1>
+	</div>
 
- 
- <div id="center">
+<div id="center">
 <div class="content">
     <!-- list blog begin  -->
-  <%
+    <%
 	Blog blog = null;
 	List<Blog> blogList = (List<Blog>)request.getAttribute("blogList");
     String content = null;
     String newContent = null;
-    int length = 300;
+    int length = 200;
     for(int i = 0; i < blogList.size(); i++) {
     	blog = blogList.get(i);
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
     	String date = sdf.format(blog.getCreated_time());   	
-    	SimpleDateFormat sdf2 = new SimpleDateFormat("HH-mm-ss");
+    	SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
     	String time = sdf2.format(blog.getCreated_time());   	
  %>  
-    
    	<h2><%=date %></h2>
     <div class="entry">
 	    <a id="6"></a>	
 		<h3><a href=""><%=blog.getTitle() %></a></h3>
 <%    
     content = blog.getContent();
-    if(content.length() < 300) {
+    if(content.length() < length) {
     	length = content.length();
-    } 
     	newContent = content.substring(0,length);
-   	    out.println(newContent + "..."); 
+    	 out.println(newContent); 
+    } else {
+    	newContent = content.substring(0,length);
+   	    out.println(newContent + "......"); 
+   	}
 %>
-			
-			
-		<p class="posted"><%=time %><a href=""><%=blog.getCategory_id() %></a> | <a href="tm?method=e&id=6#comments">评论</a></p>
+	
+		<p class="posted"><%=time %>&nbsp;<a href="">Java Web</a> | <a href="#">评论</a></p>
     </div>
+   <%} %>	
+   
 
 	<!-- 产生分页的连接-->
    	&nbsp; 1/2 &nbsp;<a href="tm?method=h&p=2">&gt;&gt;</a>
@@ -50,62 +65,39 @@
 <div id="right">
 <div class="sidebar">
         <ul>
-    	<li>专业的Java视频下载网站</li>
+    	<li>欢迎访问zwq的博客</li>
       </ul>
   	     <h2>分类</h2>
    <ul>		
 	<li><a href="">全部</a></li>
-	    <li><a href="">Struts 2.x</a></li>
-        <li><a href="">Java SE</a></li>
-        <li><a href="">Java Web</a></li>
-        <li><a href="">Hibernate 3.X</a></li>
+		<%
+		    List<Category> categoryList= (List<Category>)request.getAttribute("categoryList");
+		    for(Category category:categoryList) {
+		 %>
+		
+	    <li><a href=""><%=category.getCname() %></a></li>
+ <%} %>
        </ul>
 
   	    <h2>最近的主题</h2>
-  <ul>		
-	    <li><a href="">北京与三大运营商签协议 提高宽带接入能力</a></li>
-        <li><a href="">美澳测试超级飞机 速度可超5倍音速</a></li>
+  <ul>		  		
+   		<%
+   		   List<Blog> blogList2 = (List<Blog>)request.getAttribute("blogList");
+   		   for(Blog blog2:blogList2) { 		
+   		 %> 
+	    <li><a href="/"><%=blog2.getTitle() %></a></li>
+	    <%} %>
       </ul>
   	    <h2>最近的评论</h2>
-	  <ul>		
-	    <li><a href="">他的: 他的对的</a></li>
-        <li><a href="">长的: 你的</a></li>
+	  <ul>	
+	  	<%
+   		    List<Comment>commentList = (List<Comment>)request.getAttribute("commentList");
+   			for(Comment comment:commentList) {  		 		
+   		 %> 	
+	    <li><a href="#"><%=comment.getContent() %>></a></li>
+	    <%} %>
       </ul>
   	   	
 </div><!-- end sidebar -->	
 </div><!-- end right -->
- 
- 
- 
- 
- 
- 
- 
-<center>
-<table width="632" height="205" border="0">
-  <tr>
-    <td width="774" height="41"><%=blog.getCreated_time() %></td>
-  </tr>
-  <tr>
-    <td><a href = "/blog/BlogServlet?method=getBlog&bid=<%=blog.getBid() %>"><%=blog.getTitle() %></a></td>
-  </tr>
-  <tr>
-    <td height="42">
-    <%    
-    content = blog.getContent();
-    if(content.length() < 300) {
-    	length = content.length();
-    } 
-    	newContent = content.substring(0,length);
-   	    out.println(newContent + "..."); 
-    %>
-    </td>
-  </tr>
-  <tr>
-    <td height="36">&nbsp;</td>
-  </tr>
-</table>
-</center>
-<p>&nbsp;</p>
-<%}%>
 <%@ include file = "/jsps/footer.jsp"%>

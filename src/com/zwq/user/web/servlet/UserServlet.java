@@ -83,8 +83,7 @@ public class UserServlet extends HttpServlet{
 		/*
 		 * 封装表单数据到User对象
 		 */
-		User userForm = CommonUtils.toBean(request.getParameterMap(), User.class);
-		
+		User userForm = CommonUtils.toBean(request.getParameterMap(), User.class);		
 		/*
 		 * 校验
 		 * 校验失败则保存错误信息，同时保存表单数据用于回显，并返回regist.jsp

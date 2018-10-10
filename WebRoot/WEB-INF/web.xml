@@ -47,6 +47,11 @@
     <servlet-name>AdminUserServlet</servlet-name>
     <servlet-class>com.zwq.admin.web.servlet.AdminUserServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>HomeServlet</servlet-name>
+    <servlet-class>com.zwq.user.web.servlet.HomeServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -75,6 +80,10 @@
   <servlet-mapping>
     <servlet-name>AdminUserServlet</servlet-name>
     <url-pattern>/AdminUserServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>HomeServlet</servlet-name>
+    <url-pattern>/HomeServlet</url-pattern>
   </servlet-mapping>
   
 

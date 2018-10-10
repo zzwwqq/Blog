@@ -36,9 +36,10 @@ h1, h2, h3 {
 	margin-left: auto;
 	text-align: left;
 	padding: 0px;
-	width: 700px;
+	width: 900px;
 	background-color: #FFFFFF;
 	border: 1px solid #FFFFFF;
+	display:table;
 }
 
 #banner {
@@ -67,11 +68,17 @@ a#banner-img {
 #banner h2 {
 	font-size: small;
 }
+/*
+    让div随同层的最高div自适应高度
+	父元素加：	display:table;
+	子元素都加：display:table-cell;
 
+*/
 #center {
 	float: left;
-	width: 500px;
+	width: 700px;
 	overflow: hidden;
+	display:table-cell;
 }
 
 .content {
@@ -86,7 +93,7 @@ a#banner-img {
 	float: left;
 	width: 200px;
 	background-color: #FFFFFF;
-	overflow: hidden;
+	display:table-cell;
 }
 
 .content p {

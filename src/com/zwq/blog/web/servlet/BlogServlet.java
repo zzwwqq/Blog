@@ -14,6 +14,8 @@ import com.zwq.blog.domain.Blog;
 import com.zwq.blog.service.BlogService;
 import com.zwq.blog.service.exception.BlogException;
 import com.zwq.category.domain.Category;
+import com.zwq.category.service.CategoryService;
+import com.zwq.category.web.servlet.CategoryServlet;
 import com.zwq.comment.domain.Comment;
 import com.zwq.comment.service.CommentService;
 import com.zwq.comment.service.exception.CommentException;
@@ -113,28 +115,6 @@ public class BlogServlet extends BaseServlet {
 	}	
 	
 	/**
-	 * 管理员获取博客列表
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
-	 */
-	public void getBlogList(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-		try {
-			List<Blog> blogList = blogService.getBlogList();
-			request.setAttribute("blogList", blogList);
-			request.getRequestDispatcher("/jsps/admin/adminBlogList.jsp").forward(request, response);
-			return;
-		} catch (BlogException e) {
-			request.setAttribute("msg", e.getMessage());
-			request.setAttribute("code", "error");
-			request.getRequestDispatcher("/jsps/msg.jsp").forward(request, response);
-			return;
-		}
-	
-	}
-	
-	/**
 	 * 一般用户获取博客内容
 	 * @param request
 	 * @param response
@@ -143,8 +123,25 @@ public class BlogServlet extends BaseServlet {
 	 */
 	public void getBlogListForHome(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 		try {
+			/*
+			 * 获取所有的博文
+			 */
 			List<Blog> blogList = blogService.getBlogList();
 			request.setAttribute("blogList", blogList);
+			
+			/*
+			 * 获取所有的分类
+			 */
+			List<Category> categoryList = new CategoryService().getCategoryList();
+			request.setAttribute("categoryList", categoryList);			
+			
+			/*
+			 * 获取所有的评论
+			 */
+			List<Comment> commentList = new CommentService().getCommentList();
+			request.setAttribute("commentList", commentList);
+			
+			
 			request.getRequestDispatcher("/jsps/Home.jsp").forward(request, response);
 			return;
 		} catch (BlogException e) {
@@ -152,9 +149,17 @@ public class BlogServlet extends BaseServlet {
 			request.setAttribute("code", "error");
 			request.getRequestDispatcher("/jsps/msg.jsp").forward(request, response);
 			return;
+		} catch (CommentException e) {
+			request.setAttribute("msg", e.getMessage());
+			request.setAttribute("code", "error");
+			request.getRequestDispatcher("/jsps/msg.jsp").forward(request, response);
+			return;
 		}
 	
 	}
+	
+	
+	
 	
 	
 	

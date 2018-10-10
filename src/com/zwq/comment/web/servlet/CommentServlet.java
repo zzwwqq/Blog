@@ -6,15 +6,10 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.zwq.admin.domain.Admin;
-import com.zwq.blog.domain.Blog;
-import com.zwq.blog.service.exception.BlogException;
 import com.zwq.comment.domain.Comment;
 import com.zwq.comment.service.CommentService;
 import com.zwq.comment.service.exception.CommentException;
-import com.zwq.user.domain.User;
-
 import cn.itcast.commons.CommonUtils;
 import cn.itcast.servlet.BaseServlet;
 

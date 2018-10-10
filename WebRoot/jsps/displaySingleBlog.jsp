@@ -9,7 +9,7 @@
 <body>
 <div id="container">	
 	<div id="banner">
-		<h1><a href="#">zwq的博客</a></h1>
+		<h1><a href="/blog">zwq的博客</a></h1>
 	</div>
 
 <div id="center">
