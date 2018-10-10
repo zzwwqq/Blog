@@ -99,9 +99,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	            <div>
     	               <div><span id = "otherLoginSpan">其他账号登录：</span>
     	               <span id="qqLoginBtn"></span>
-    	               <img alt="QQ" class = "qqClass" src="images/qq/bt_blue_24X24.png" onclick="toLogin()">
-    	               <img alt="微信" class = "wechatClass" src="images/wechat/icon32_wx_logo.png">
-    	               <img alt="微博" class = "weiboClass" src="images/weibo/weibo.png">
+    	               <img alt="QQ" class = "qqClass" src="images/login/qq/bt_blue_24X24.png" onclick="toLogin()">
+    	               <img alt="微信" class = "wechatClass" src="images/login/wechat/icon32_wx_logo.png">
+    	               <img alt="微博" class = "weiboClass" src="images/login/weibo/weibo.png">
     	               <a href="jsps/user/regist.jsp" class="hereregister1">注册</a><a href="jsps/user/findPassword.jsp" class="fondpassword">忘记密码？</a>
     	               
     	               </div>

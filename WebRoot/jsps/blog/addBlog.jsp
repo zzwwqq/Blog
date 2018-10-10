@@ -20,7 +20,7 @@ oFCKeditor.ReplaceTextarea() ;
  %>
 <h3 style="text-align:center;">发布博客</h3>
 <p style="text-align:left; margin-left: 7px">
-	<a style="display:block;text-align: center" href="/blog/BlogServlet?method=getBlogList">查看往期博客内容</a>
+	<a style="display:block;text-align: center" href="http://localhost:8080/blog/AdminBlogServlet?method=displayBlogList">查看往期博客内容</a>
 </p>
 <center>
 	<form id="form1" name="form1" method="post"

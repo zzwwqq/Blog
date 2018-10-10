@@ -5,7 +5,7 @@
 <!-- 导入JQuery -->
 <script type="text/javascript" src = "<c:url value = '/js/jquery-3.2.1.min.js'/>"></script>
 <!-- 导入JS文件 -->
-<script type="text/javascript" src = "<c:url value = '/js/user/updatePassword.js'/>"></script>
+<script type="text/javascript" src = "<c:url value = '/js/admin/updatePassword.js'/>"></script>
 
   <script type="text/javascript" charset="UTF-8">
   function _change(){
@@ -16,23 +16,24 @@
 <h2>修改密码</h2>
 <center>
 <div id = "mainDiv">
- <form  id = "updatePasswordForm" action="updatePassword.do" method = "POST">
+ <form  id = "updatePasswordForm" action="AdminUserServlet" method = "POST">
+    <input type="hidden" name = "method" value = "updatePassword"/>
     <table style="padding-bottom: 10px">
     <tr>
     <td class = "tdClass">原密码：</td>
-     <td><input type = "password" name = "loginpass" id = "loginpass" class = "inputClass" value = "${userForm.loginpass }"/></td>
-      <td><label class = "errorClass" id = "loginpassError">${msg }</label></td>
+     <td><input type = "password" name = "adminpassword" id = "adminpassword" class = "inputClass" value = "${adminForm.adminpassword }"/></td>
+      <td><label class = "errorClass" id = "adminpasswordError">${msg }</label></td>
     </tr>
    <tr>
      <td class = "tdClass">新密码：</td>
-     <td><input type = "password" name = "newpass" id = "newpass" class = "inputClass" value = "${userForm.newpass }"/></td>
-      <td><label class = "errorClass" id = "newpassError">${errors.newpassError }</label></td>
+     <td><input type = "password" name = "newadminpassword" id = "newadminpassword" class = "inputClass" value = "${adminForm.newadminpassword }"/></td>
+      <td><label class = "errorClass" id = "newadminpasswordError">${errors.newadminpasswordError }</label></td>
     </tr>
     
     <tr>
      <td class = "tdClass">确认密码：</td>
-     <td><input type = "password" name = "reloginpass" id = "reloginpass" class = "inputClass" value = "${userForm.reloginpass }"/></td>
-      <td><label class = "errorClass" id = "reloginpassError">${errors.reloginpassError }</label></td>
+     <td><input type = "readminpassword" name = "readminpassword" id = "readminpassword" class = "inputClass" value = "${adminForm.readminpassword }"/></td>
+      <td><label class = "errorClass" id = "readminpasswordError">${errors.readminpasswordError }</label></td>
     </tr>
     
      <tr>

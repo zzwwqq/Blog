@@ -43,6 +43,11 @@
     <servlet-name>CommentServlet</servlet-name>
     <servlet-class>com.zwq.comment.web.servlet.CommentServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>AdminUserServlet</servlet-name>
+    <servlet-class>com.zwq.admin.web.servlet.AdminUserServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -66,6 +71,10 @@
   <servlet-mapping>
     <servlet-name>CommentServlet</servlet-name>
     <url-pattern>/CommentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AdminUserServlet</servlet-name>
+    <url-pattern>/AdminUserServlet</url-pattern>
   </servlet-mapping>
   
 

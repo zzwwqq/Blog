@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.zwq.admin.domain.Admin;
 import com.zwq.blog.domain.Blog;
 import com.zwq.blog.service.exception.BlogException;
 import com.zwq.comment.domain.Comment;
@@ -52,9 +53,9 @@ public class CommentServlet extends BaseServlet {
 	}
 	
 	public void getCommentList(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-		User user = (User)request.getSession().getAttribute("sessionUser");
-		if(user == null) {
-			request.getRequestDispatcher("/jsps/user/login.jsp").forward(request, response);;
+		Admin admin = (Admin)request.getSession().getAttribute("sessionUser");
+		if(admin == null) {
+			request.getRequestDispatcher("/jsps/admin/adminLogin.jsp").forward(request, response);;
 		}
 		try {
 			List<Comment> commentList = commentService.getCommentList();
@@ -71,9 +72,9 @@ public class CommentServlet extends BaseServlet {
 	}
 	
 		public void deleteComment(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-			User user = (User)request.getSession().getAttribute("sessionUser");
-			if(user == null) {
-				request.getRequestDispatcher("/jsps/user/login.jsp").forward(request, response);;
+			Admin admin = (Admin)request.getSession().getAttribute("sessionUser");
+			if(admin == null) {
+				request.getRequestDispatcher("/jsps/admin/adminLogin.jsp").forward(request, response);;
 			}
 			String tempid = request.getParameter("id");
 			int id = Integer.parseInt(tempid);
@@ -104,9 +105,9 @@ public class CommentServlet extends BaseServlet {
 	 * @throws IOException
 	 */
 	public void preUpdateComment(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-		User user = (User)request.getSession().getAttribute("sessionUser");
-		if(user == null) {
-			request.getRequestDispatcher("/jsps/user/login.jsp").forward(request, response);;
+		Admin admin = (Admin)request.getSession().getAttribute("sessionUser");
+		if(admin == null) {
+			request.getRequestDispatcher("/jsps/admin/adminLogin.jsp").forward(request, response);;
 		}
 		String tempId = request.getParameter("id");
 		int id = Integer.parseInt(tempId);
@@ -130,9 +131,9 @@ public class CommentServlet extends BaseServlet {
 	 * @throws IOException
 	 */
 	public void updateComment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User user = (User)request.getSession().getAttribute("sessionUser");
-		if(user == null) {
-			request.getRequestDispatcher("/jsps/user/login.jsp").forward(request, response);;
+		Admin admin = (Admin)request.getSession().getAttribute("sessionUser");
+		if(admin == null) {
+			request.getRequestDispatcher("/jsps/admin/adminLogin.jsp").forward(request, response);;
 		}
 		Comment formComment = CommonUtils.toBean(request.getParameterMap(), Comment.class);
 		formComment.setCreatedtime(new Timestamp(new Date().getTime()));

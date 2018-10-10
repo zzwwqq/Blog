@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.zwq.admin.domain.Admin;
 import com.zwq.blog.domain.Blog;
 import com.zwq.blog.service.BlogService;
 import com.zwq.blog.service.exception.BlogException;
@@ -25,9 +26,9 @@ public class BlogServlet extends BaseServlet {
 	private BlogService blogService = new BlogService();
 	
 	public void preAddBlog(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-		User user = (User)request.getSession().getAttribute("sessionUser");
-		if(user == null) {
-			request.getRequestDispatcher("/jsps/user/login.jsp").forward(request, response);;
+		Admin admin = (Admin)request.getSession().getAttribute("sessionUser");
+		if(admin == null) {
+			request.getRequestDispatcher("/jsps/admin/adminLogin.jsp").forward(request, response);;
 		}
 		try {
 			List<Category> categoryList = blogService.getCategoryList();
@@ -46,9 +47,9 @@ public class BlogServlet extends BaseServlet {
 	
 	
 	public void addBlog(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
-		User user = (User)request.getSession().getAttribute("sessionUser");
-		if(user == null) {
-			request.getRequestDispatcher("/jsps/user/login.jsp").forward(request, response);;
+		Admin admin = (Admin)request.getSession().getAttribute("sessionUser");
+		if(admin == null) {
+			request.getRequestDispatcher("/jsps/admin/adminLogin.jsp").forward(request, response);;
 		}
 		Blog formBlog = new Blog();
 		try {
@@ -111,12 +112,18 @@ public class BlogServlet extends BaseServlet {
 		
 	}	
 	
-	
+	/**
+	 * 管理员获取博客列表
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void getBlogList(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 		try {
 			List<Blog> blogList = blogService.getBlogList();
 			request.setAttribute("blogList", blogList);
-			request.getRequestDispatcher("/jsps/blog/displayBlogList.jsp").forward(request, response);
+			request.getRequestDispatcher("/jsps/admin/adminBlogList.jsp").forward(request, response);
 			return;
 		} catch (BlogException e) {
 			request.setAttribute("msg", e.getMessage());
@@ -126,6 +133,31 @@ public class BlogServlet extends BaseServlet {
 		}
 	
 	}
+	
+	/**
+	 * 一般用户获取博客内容
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public void getBlogListForHome(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		try {
+			List<Blog> blogList = blogService.getBlogList();
+			request.setAttribute("blogList", blogList);
+			request.getRequestDispatcher("/jsps/Home.jsp").forward(request, response);
+			return;
+		} catch (BlogException e) {
+			request.setAttribute("msg", e.getMessage());
+			request.setAttribute("code", "error");
+			request.getRequestDispatcher("/jsps/msg.jsp").forward(request, response);
+			return;
+		}
+	
+	}
+	
+	
+	
 	
 	
 	

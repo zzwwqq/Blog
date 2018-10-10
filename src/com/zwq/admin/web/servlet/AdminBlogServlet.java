@@ -5,12 +5,12 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.zwq.admin.domain.Admin;
 import com.zwq.admin.service.AdminBlogService;
 import com.zwq.blog.domain.Blog;
 import com.zwq.blog.service.exception.BlogException;
 import com.zwq.category.domain.Category;
-import com.zwq.user.domain.User;
-import com.zwq.user.service.exception.UserException;
 
 import cn.itcast.commons.CommonUtils;
 import cn.itcast.servlet.BaseServlet;
@@ -18,10 +18,17 @@ import cn.itcast.servlet.BaseServlet;
 public class AdminBlogServlet extends BaseServlet {
 	private AdminBlogService adminBlogService = new AdminBlogService();
 	
+	/**
+	 * 博客管理
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void getBlogList(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-		User user = (User)request.getSession().getAttribute("sessionUser");
-		if(user == null) {
-			request.getRequestDispatcher("/jsps/user/login.jsp").forward(request, response);;
+		Admin admin = (Admin)request.getSession().getAttribute("sessionUser");
+		if(admin == null) {
+			request.getRequestDispatcher("/jsps/admin/adminLogin.jsp").forward(request, response);;
 		}
 		try {
 			List<Blog> blogList = adminBlogService.getBlogList();
@@ -33,15 +40,36 @@ public class AdminBlogServlet extends BaseServlet {
 			request.setAttribute("code", "error");
 			request.getRequestDispatcher("/jsps/admin/blogMsg.jsp").forward(request, response);
 			return;
-		}
+		}	
+	}
 	
+	
+	/**
+	 * 管理员登录后显示所有博客
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public void displayBlogList(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		try {
+			List<Blog> blogList = adminBlogService.getBlogList();
+			request.setAttribute("blogList", blogList);
+			request.getRequestDispatcher("/jsps/admin/displayBlogList.jsp").forward(request, response);
+			return;
+		} catch (BlogException e) {
+			request.setAttribute("msg", e.getMessage());
+			request.setAttribute("code", "error");
+			request.getRequestDispatcher("/jsps/admin/blogMsg.jsp").forward(request, response);
+			return;
+		}	
 	}
 	
 	
 	public void deleteBlog(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-		User user = (User)request.getSession().getAttribute("sessionUser");
-		if(user == null) {
-			request.getRequestDispatcher("/jsps/user/login.jsp").forward(request, response);;
+		Admin admin = (Admin)request.getSession().getAttribute("sessionUser");
+		if(admin == null) {
+			request.getRequestDispatcher("/jsps/admin/adminLogin.jsp").forward(request, response);;
 		}
 		String tempbid = request.getParameter("bid");
 		int bid = Integer.parseInt(tempbid);
@@ -64,9 +92,9 @@ public class AdminBlogServlet extends BaseServlet {
 	
 	
 	public void preUpdateBlog(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-		User user = (User)request.getSession().getAttribute("sessionUser");
-		if(user == null) {
-			request.getRequestDispatcher("/jsps/user/login.jsp").forward(request, response);;
+		Admin admin = (Admin)request.getSession().getAttribute("sessionUser");
+		if(admin == null) {
+			request.getRequestDispatcher("/jsps/admin/adminLogin.jsp").forward(request, response);;
 		}
 		String tempBid = request.getParameter("bid");
 		int bid = Integer.parseInt(tempBid);
@@ -91,9 +119,9 @@ public class AdminBlogServlet extends BaseServlet {
 	}
 
 	public void updateBlog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User user = (User)request.getSession().getAttribute("sessionUser");
-		if(user == null) {
-			request.getRequestDispatcher("/jsps/user/login.jsp").forward(request, response);;
+		Admin admin = (Admin)request.getSession().getAttribute("sessionUser");
+		if(admin == null) {
+			request.getRequestDispatcher("/jsps/admin/adminLogin.jsp").forward(request, response);;
 		}
 		Blog formBlog = CommonUtils.toBean(request.getParameterMap(), Blog.class);
 		try {

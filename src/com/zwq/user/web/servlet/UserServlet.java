@@ -292,7 +292,7 @@ public class UserServlet extends HttpServlet{
 		//重定向后，request被清空，不能再获取request中的数据
 		//response.sendRedirect("/blog/index.jsp");
 		//转发
-		request.getRequestDispatcher("/BlogServlet?method=getBlogList").forward(request, response);
+		request.getRequestDispatcher("/BlogServlet?method=getBlogListForHome").forward(request, response);
 	}
 	
 	/**

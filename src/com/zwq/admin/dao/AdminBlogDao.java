@@ -7,8 +7,10 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
+import com.zwq.admin.domain.Admin;
 import com.zwq.blog.domain.Blog;
 import com.zwq.category.domain.Category;
+import com.zwq.user.domain.User;
 
 import cn.itcast.jdbc.TxQueryRunner;
 
@@ -42,4 +44,12 @@ public class AdminBlogDao {
 		String sql = "select * from blog where bid =?";
 		return qr.query(sql, new BeanHandler<Blog>(Blog.class),bid);
 	}	
+	
+	
+	
+	
+	
+	
+	
+	
 }
