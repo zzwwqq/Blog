@@ -156,5 +156,12 @@ public class CommentServlet extends BaseServlet {
 			request.getRequestDispatcher("/jsps/comment/commentMsg.jsp").forward(request, response);
 			return;
 		}		
-	}		
+	}	
+	
+
+
+	
+	
+	
+	
 }

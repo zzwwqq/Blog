@@ -10,6 +10,7 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import com.zwq.blog.domain.Blog;
 import com.zwq.category.domain.Category;
+import com.zwq.page.domain.PageConstant;
 
 import cn.itcast.jdbc.TxQueryRunner;
 
@@ -34,15 +35,25 @@ public class BlogDao {
 	}
 	
 	public List<Blog> findBlogList() throws SQLException {
-		String sql = "select * from blog order by bid desc";
-		 List<Blog>bloglist = qr.query(sql, new BeanListHandler<Blog>(Blog.class));
+		String sql = "select * from blog  order by bid desc limit ?,?";
+		 List<Blog>bloglist = qr.query(sql, new BeanListHandler<Blog>(Blog.class),0,5);
 		 return bloglist;
 	}
 	
 	public Blog findByTitleAndCategory_IdAndContent(String title, int category_id,String content) throws SQLException {
 		String sql = "select * from blog where title=? And category_id=? And content=?";
 		return qr.query(sql, new BeanHandler<Blog>(Blog.class),title,category_id,content);
+	}	
+	
+	public List<Blog>getLimitRowNumTitleList() throws SQLException {
+		String sql = "select * from blog order by bid desc limit ?,?";
+		Object[]params = new Object[] {0,new PageConstant().LIMITTITLEROWNUM};
+		return qr.query(sql, new BeanListHandler<Blog>(Blog.class),params);
 	}
+	
+	
+	
+	
 	
 	
 	

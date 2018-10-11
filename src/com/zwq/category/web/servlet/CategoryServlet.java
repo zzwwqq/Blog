@@ -12,8 +12,6 @@ import com.zwq.admin.domain.Admin;
 import com.zwq.blog.service.exception.BlogException;
 import com.zwq.category.domain.Category;
 import com.zwq.category.service.CategoryService;
-import com.zwq.user.domain.User;
-
 import cn.itcast.commons.CommonUtils;
 import cn.itcast.servlet.BaseServlet;
 
@@ -194,5 +192,5 @@ public class CategoryServlet extends BaseServlet {
 			request.getRequestDispatcher("/jsps/category/categoryMsg.jsp").forward(request, response);
 			return;
 		}
-	}
+	}	
 }

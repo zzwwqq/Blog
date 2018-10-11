@@ -8,6 +8,8 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import com.zwq.blog.domain.Blog;
 import com.zwq.comment.domain.Comment;
+import com.zwq.page.domain.PageConstant;
+
 import cn.itcast.jdbc.TxQueryRunner;
 
 public class CommentDao {
@@ -54,6 +56,15 @@ public class CommentDao {
 		String sql = "delete from comment where id =?";
 		return qr.update(sql,id);
 	}
+	
+	public List<Comment> getLimitRowNumComment() throws SQLException{
+		String sql = "select * from comment order by id desc limit ?,?";
+		Object[]params = new Object[] {0,new PageConstant().LIMITCOMMENTROWNUM};
+		return qr.query(sql, new BeanListHandler<Comment>(Comment.class),params);	
+	}
+	
+	
+	
 	
 	
 	

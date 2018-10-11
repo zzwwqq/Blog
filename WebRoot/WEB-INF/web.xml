@@ -51,6 +51,11 @@
     <servlet-name>HomeServlet</servlet-name>
     <servlet-class>com.zwq.user.web.servlet.HomeServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>PageServlet</servlet-name>
+    <servlet-class>com.zwq.page.web.servlet.PageServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -84,6 +89,10 @@
   <servlet-mapping>
     <servlet-name>HomeServlet</servlet-name>
     <url-pattern>/HomeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PageServlet</servlet-name>
+    <url-pattern>/PageServlet</url-pattern>
   </servlet-mapping>
   
 

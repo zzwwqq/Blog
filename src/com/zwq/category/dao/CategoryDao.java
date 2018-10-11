@@ -6,6 +6,9 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import com.zwq.category.domain.Category;
+import com.zwq.comment.domain.Comment;
+import com.zwq.page.domain.PageConstant;
+
 import cn.itcast.jdbc.TxQueryRunner;
 
 public class CategoryDao {
@@ -47,4 +50,17 @@ private QueryRunner qr = new TxQueryRunner();
 		Object[]params = new Object[] {category.getCname(),category.getClevel(),category.getCid()};
 		return qr.update(sql,params);
 	}	
+	
+	public List<Category> getLimitRowNumCategory() throws SQLException{
+		String sql = "select * from category order by cid desc limit ?,?";
+		Object[]params = new Object[] {0,new PageConstant().LIMITCATEGORYEROWNUM};
+		return qr.query(sql, new BeanListHandler<Category>(Category.class),params);	
+	}
+	
+	
+	
+	
+	
+	
+	
 }

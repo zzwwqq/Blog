@@ -6,9 +6,22 @@ public class Blog {
 	private int bid;
 	private String title;
 	private String content;
-	private int category_id;
-	private Timestamp created_time;
+	private int category_id;//分类id
+	private Timestamp created_time;//创建时间
+	private String cname;//分类名
+
 	
+	
+	
+	public String getCname() {
+		return cname;
+	}
+
+
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
+
 
 	public int getBid() {
 		return bid;
