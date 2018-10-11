@@ -33,12 +33,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	</script>
 	
-	<script type="text/javascript"  charset="utf-8"
-    src="http://connect.qq.com/qc_jssdk.js" 
-    data-appid="APPID" 
-    data-redirecturi="REDIRECTURI" 
+<!-- QQ互联登录 -->	
+<script type="text/javascript"  charset="utf-8"
+    src="/blog/js/qqLogin/qc_jssdk.js" 
+    data-appid="101507411" 
+    data-redirecturi="http://localhost:8080/blog/PageServlet?method=getPageBean" 
     >
 </script>
+
+
 <script type="text/javascript">
     QC.Login({
        btnId:"qqLoginBtn"    //插入按钮的节点id
@@ -98,8 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	            <br/>
     	            <div>
     	               <div><span id = "otherLoginSpan">其他账号登录：</span>
-    	               <span id="qqLoginBtn"></span>
-    	               <img alt="QQ" class = "qqClass" src="images/login/qq/bt_blue_24X24.png" onclick="toLogin()">
+    	               <span id="qqLoginBtn"><img id ="qqLoginBtn"  alt="QQ" class = "qqClass" src="images/login/qq/bt_blue_24X24.png" onclick="toLogin()"></span>
     	               <img alt="微信" class = "wechatClass" src="images/login/wechat/icon32_wx_logo.png">
     	               <img alt="微博" class = "weiboClass" src="images/login/weibo/weibo.png">
     	               <a href="jsps/user/regist.jsp" class="hereregister1">注册</a><a href="jsps/user/findPassword.jsp" class="fondpassword">忘记密码？</a>

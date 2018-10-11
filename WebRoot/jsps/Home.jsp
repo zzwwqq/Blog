@@ -12,14 +12,13 @@
 <title>zwq的博客</title>
 <link rel="stylesheet" type="text/css" href="/blog/css/display/style.css" />
 <script type="text/javascript" src="js/page.js"></script>
-
 </head>
 <body>
 <div id="container">	
 	<div id="banner">
 		<h1><a href="#">zwq的博客</a></h1>
+		<div></div>
 	</div>
-
 <div id="center">
 <div class="content">
     <!-- list blog begin  -->
