@@ -30,7 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   } else{
   
   %>
-  	<a href="/blog/jsps/admin/adminLogin.jsp">您还未登录，点击这里登录</a>
+  	<a href="jsps/admin/adminLogin.jsp">您还未登录，点击这里登录</a>
  <%
   }
   %>

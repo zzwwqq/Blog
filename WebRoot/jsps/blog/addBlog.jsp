@@ -4,7 +4,7 @@
 <%@page import="com.zwq.category.domain.Category"%>
 
 <!-- fckeditor -->
-<script type="text/javascript" src="/blog/fckeditor/fckeditor.js"></script>
+<script type="text/javascript" src="<c:url value='/fckeditor/fckeditor.js'/>"></script>
 <script type="text/javascript">
 window.onload = function()
 {

@@ -23,7 +23,7 @@
 				<td align="center" height="23"><%=category.getCid() %></td>
 				<td align="center"><%=category.getCname() %></td>
 				<td align="center"><%=category.getClevel() %></td>				
-				<td align="center"><a href="CategoryServlet?method=preUpdateCategory&cid=<%=category.getCid()%>" ><img src="/blog/images/manager/edit.gif" border="0" alt="修改"></a><a href="/blog/CategoryServlet?method=deleteCategory&cid=<%=category.getCid()%>"><img src="/blog/images/manager/delete.gif" border="0" alt="删除"></a></td>    			
+				<td align="center"><a href="CategoryServlet?method=preUpdateCategory&cid=<%=category.getCid()%>" ><img src="/blog/images/manager/edit.gif" border="0" alt="修改"></a><a href="CategoryServlet?method=deleteCategory&cid=<%=category.getCid()%>"><img src="/blog/images/manager/delete.gif" border="0" alt="删除"></a></td>    			
 			</tr>
 			<%} %>
 		</table>
