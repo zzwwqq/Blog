@@ -32,7 +32,7 @@
     
     <tr>
      <td class = "tdClass">确认密码：</td>
-     <td><input type = "readminpassword" name = "readminpassword" id = "readminpassword" class = "inputClass" value = "${adminForm.readminpassword }"/></td>
+     <td><input type = "password" name = "readminpassword" id = "readminpassword" class = "inputClass" value = "${adminForm.readminpassword }"/></td>
       <td><label class = "errorClass" id = "readminpasswordError">${errors.readminpasswordError }</label></td>
     </tr>
     

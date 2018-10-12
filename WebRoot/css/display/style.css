@@ -40,6 +40,7 @@ h1, h2, h3 {
 	background-color: #FFFFFF;
 	border: 1px solid #FFFFFF;
 	display:table;
+	min-height: 800px;
 }
 
 #banner {

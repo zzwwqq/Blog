@@ -6,11 +6,18 @@
 <%@ page import = "com.zwq.category.domain.Category" %>
 <%@ page import = "com.zwq.comment.domain.Comment" %>
 <%@ page import = "com.zwq.page.domain.PageBean" %>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>zwq的博客</title>
-<link rel="stylesheet" type="text/css" href="/blog/css/display/style.css" />
+<base href="<%=basePath%>">
+<link rel="stylesheet" type="text/css" href="css/display/style.css" />
 </head>
 <body>
 <div id="container">	

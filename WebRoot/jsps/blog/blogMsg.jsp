@@ -1,11 +1,16 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import = "com.zwq.blog.domain.Blog" %>
-
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
     <title>信息板</title>
+    <base href="<%=basePath%>">
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -81,7 +86,7 @@ a:hover {color:#FF6600; text-decoration: underline;}
 		 Blog blog = (Blog)request.getAttribute("formBlog");
 		 %>
 		<span style="margin-left: 50px;"><a target="_top" href="<c:url value='/AdminBlogServlet?method=getBlogList'/>">查看博客信息</a></span>
-		<span style="margin-left: 50px;"><a target="_top" href="/blog/AdminBlogServlet?method=preUpdateBlog&bid=<%=blog.getBid()%>">修改博客信息</a></span>
+		<span style="margin-left: 50px;"><a target="_top" href="AdminBlogServlet?method=preUpdateBlog&bid=<%=blog.getBid()%>">修改博客信息</a></span>
 	  </div>
 	</div>
 </div>

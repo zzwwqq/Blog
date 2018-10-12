@@ -21,7 +21,7 @@
 			<tr align="center">
 				<td ><%=blog.getBid() %></td>
 				<td ><%=blog.getTitle() %></td>
-				<td align="center"><a href="/blog/AdminBlogServlet?method=preUpdateBlog&bid=<%=blog.getBid()%>" ><img src="/blog/images/manager/edit.gif" border="0" alt="修改"></a><a href="/blog/AdminBlogServlet?method=deleteBlog&bid=<%=blog.getBid()%>"><img src="/blog/images/manager/delete.gif" border="0" alt="删除"></a></td>    
+				<td align="center"><a href="AdminBlogServlet?method=preUpdateBlog&bid=<%=blog.getBid()%>" ><img src="/blog/images/manager/edit.gif" border="0" alt="修改"></a><a href="/blog/AdminBlogServlet?method=deleteBlog&bid=<%=blog.getBid()%>"><img src="/blog/images/manager/delete.gif" border="0" alt="删除"></a></td>    
 			</tr>
 			<%} %>			
 		</table>	

@@ -10,8 +10,56 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>zwq的博客</title>
-<link rel="stylesheet" type="text/css" href="/blog/css/display/style.css" />
+<link rel="stylesheet" type="text/css" href="<c:url value = '/css/display/style.css' />"/>
 <script type="text/javascript" src="js/page.js"></script>
+<script type="text/javascript" src="/blog/js/qqLogin/qc_jssdk.js"></script>
+<%--
+<script type="text/javascript">
+//下面这段if判断代码的作用是延迟加载，不写也可以，但为了好的体验建议写上，当然这个800是毫秒数，可以自定义 
+if(document.location.search.indexOf('signout_qq')>=0) { 
+setTimeout(function(){ 
+QC.Login.signOut(); 
+alert('QQ登录，退出成功'); }, 800) 
+} 
+//从页面收集OpenAPI必要的参数。get_user_info不需要输入参数，因此paras中没有参数 
+var paras = {}; 
+//用JS SDK调用OpenAPI 
+QC.api("get_user_info", paras) 
+//指定接口访问成功的接收函数，s为成功返回Response对象 
+.success(function(s) { 
+//成功回调，通过s.data获取OpenAPI的返回数据 
+QC.Login.getMe(function(openId, accessToken) { 
+qq_Login(s,openId,accessToken);
+//对应JS的qq_Login()的方法，继续往下看 
+}) 
+}) //指定接口访问失败的接收函数，f为失败返回Response对象 
+.error(function(f) { 
+//失败回调 
+qq_error(f); 
+//这个地方可以自动以逻辑处理，也可以不处理，就是请求失败的提示
+}) //指定接口完成请求后的接收函数，c为完成请求返回Response对象 
+.complete(function(c) { 
+//完成请求回调 // 
+qq_complete(c); 
+});
+</script>
+ --%>
+
+<script type="text/javascript">
+var paras = {};
+
+QC.api("get_user_info", paras)
+	.success(function(s){//成功回调
+		alert("获取用户信息成功！当前用户昵称为："+s.data.nickname);
+	})
+	.error(function(f){//失败回调
+		alert("获取用户信息失败！");
+	})
+	.complete(function(c){//完成请求回调
+		alert("获取用户信息完成！");
+	});
+</script>
+
 </head>
 <body>
 <div id="container">	

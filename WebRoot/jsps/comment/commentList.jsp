@@ -22,7 +22,7 @@ for(Comment comment:commentList) {
 				<td align="center"><%=comment.getUsername() %></td>
 				<td align="center" height="15"><%=comment.getContent() %></td>
 				<td align="center"><%=comment.getCreatedtime() %></td>
-			    <td align="center"><a href="/blog/CommentServlet?method=preUpdateComment&id=<%=comment.getId()%>" ><img src="/blog/images/manager/edit.gif" border="0" alt="修改"></a><a href="/blog/CommentServlet?method=deleteComment&id=<%=comment.getId()%>"><img src="/blog/images/manager/delete.gif" border="0" alt="删除"></a></td>    				
+			    <td align="center"><a href="CommentServlet?method=preUpdateComment&id=<%=comment.getId()%>" ><img src="/blog/images/manager/edit.gif" border="0" alt="修改"></a><a href="/blog/CommentServlet?method=deleteComment&id=<%=comment.getId()%>"><img src="/blog/images/manager/delete.gif" border="0" alt="删除"></a></td>    				
 			</tr>
 <%} %>
 		</table>

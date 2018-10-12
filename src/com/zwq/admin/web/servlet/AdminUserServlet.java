@@ -11,12 +11,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import com.zwq.admin.domain.Admin;
 import com.zwq.admin.service.AdminUserService;
 import com.zwq.admin.service.exception.AdminUserException;
-import com.zwq.user.domain.User;
-import com.zwq.user.service.exception.UserException;
 
 import cn.itcast.commons.CommonUtils;
 import cn.itcast.servlet.BaseServlet;

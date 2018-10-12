@@ -12,7 +12,7 @@
 <title></title>
 <base href="<%=basePath%>">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8">
-<link href="/blog/css/admin/style.css" type="text/css" rel="stylesheet">
+<link href="css/admin/style.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="<c:url value = '/js/jquery-3.2.1.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value = '/js/admin/adminLogin.js'/>"></script>
 
@@ -48,7 +48,7 @@
 					<tr>
 						<td  align="right">密码：</td>
 						<td >
-						<input type="text" name="adminpassword" id="adminpassword" class = "inputClass"/></td>
+						<input type="password" name="adminpassword" id="adminpassword" class = "inputClass"/></td>
 						<td ><label class="errorClass" id = "adminpasswordError">${errors.adminpasswordError }</label></td>
 					</tr>
 						<tr>

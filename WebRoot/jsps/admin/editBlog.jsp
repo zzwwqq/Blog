@@ -29,7 +29,7 @@ oFCKeditor.ReplaceTextarea() ;
 </head>
 <body>	
 <p>请修改您的博文内容：</p>
-<p><a href = "/blog/BlogServlet?method=getBlogList">查看博文内容</a></p>
+<p><a href = "AdminBlogServlet?method=displayBlogList">查看博文内容</a></p>
 <form id="form1" name="form1" method="post" action="<c:url value = '/AdminBlogServlet'/>">
   <input type = "hidden" name = "method" value = "updateBlog"/>
   <input type = "hidden" name = "bid" value = "<%=blog.getBid() %>" />

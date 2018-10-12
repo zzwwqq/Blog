@@ -30,7 +30,7 @@ public class CommentDao {
 	
 	
 	public List<Comment> findCommentList() throws SQLException {
-		String sql = "select * from comment order by blog_id desc,id desc";
+		String sql = "select * from comment order by id desc";
 		 List<Comment>commentlist = qr.query(sql, new BeanListHandler<Comment>(Comment.class));
 		 return commentlist;
 	}

@@ -9,22 +9,22 @@
 <body>
 <table width="191" border="1" align="center" cellpadding="0" cellspacing="0">
    <tr>
-    <td align="center"><a href="http://localhost:8080/blog/BlogServlet?method=getBlogList">查看博客</a></td>
+    <td align="center"><a href="/blog/BlogServlet?method=getBlogList">查看博客</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="http://localhost:8080/blog/BlogServlet?method=preAddBlog">发布博客</a></td>
+    <td align="center"><a href="/blog/BlogServlet?method=preAddBlog">发布博客</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="http://localhost:8080/blog/AdminBlogServlet?method=getBlogList">管理博客</a></td>
+    <td align="center"><a href="/blog/AdminBlogServlet?method=getBlogList">管理博客</a></td>
   </tr>
      <tr>
-    <td align="center"><a href="http://localhost:8080/blog/jsps/category/addCategory.jsp">添加分类</a></td>
+    <td align="center"><a href="/blog/jsps/category/addCategory.jsp">添加分类</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="http://localhost:8080/blog/CategoryServlet?method=getCategoryList">管理分类</a></td>
+    <td align="center"><a href="/blog/CategoryServlet?method=getCategoryList">管理分类</a></td>
   </tr>
  <tr>
-    <td align="center"><a href="http://localhost:8080/blog/CommentServlet?method=getCommentList">管理评论</a></td>
+    <td align="center"><a href="/blog/CommentServlet?method=getCommentList">管理评论</a></td>
   </tr>
  
 </table>

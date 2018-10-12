@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 }
 
 body {
-	background-image: url("<%=basePath %>/images/钢铁侠.png");
+	background-image: url("/blog/images/钢铁侠.png");
 }
 </style>
 </head>
