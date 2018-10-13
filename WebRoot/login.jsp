@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- 点击验证码，切换到下一张 -->
 <script type="text/javascript">
 		function refresh(obj){
-			obj.src="/blog/VerifyCodeServlet?a="+new Date().getTime();
+			obj.src="VerifyCodeServlet?a="+new Date().getTime();
 		}
 	</script>
 <%-- 	

@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sun.mail.imap.protocol.Status;
 import com.zwq.blog.domain.Blog;
 import com.zwq.category.dao.CategoryDao;
 import com.zwq.category.domain.Category;
@@ -46,6 +47,18 @@ public class PageServlet extends BaseServlet {
 	 * @throws SQLException 
 	 */
 	public void getPageBean(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException, SQLException {
+		
+//		String name = request.getParameter("name");
+//		String openid = request.getParameter("openid");
+//		String token = request.getParameter("token");
+//		System.out.println("========================="+name);
+//		System.out.println("========================="+openid);
+//		System.out.println("========================="+token);
+//		//if (name != null && openid != null && token != null) {
+//			String status = "success";
+//			response.getWriter().print(status);
+			request.setAttribute("status", "");
+	
 		List<Comment>commentList = null;
 		List<Category>categoryList = null;
 		String param = request.getParameter("param");//根据该参数值决定查询所有分类还是查询部分分类
@@ -66,5 +79,6 @@ public class PageServlet extends BaseServlet {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}	
-	}	
+	}
+	//}		
 }
