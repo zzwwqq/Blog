@@ -46,6 +46,16 @@ public class PageServlet extends BaseServlet {
 	 * @throws SQLException 
 	 */
 	public void getPageBean(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException, SQLException {
+		System.out.println("========================"+request.getParameter("name")+"======================");
+		System.out.println(request.getParameter("openid"));
+		System.out.println(request.getParameter("otype"));
+		System.out.println(request.getParameter("token"));
+		
+		
+		
+		
+		
+		
 		List<Comment>commentList = null;
 		List<Category>categoryList = null;
 		String param = request.getParameter("param");//根据该参数值决定查询所有分类还是查询部分分类

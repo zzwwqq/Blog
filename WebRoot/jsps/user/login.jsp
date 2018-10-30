@@ -38,12 +38,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			obj.src="/blog/VerifyCodeServlet?a="+new Date().getTime();
 		}
 	</script>
-<%-- 	
+	
 <!-- QQ互联登录 -->	
 <script type="text/javascript"  charset="utf-8"
     src="/blog/js/qqLogin/qc_jssdk.js" 
     data-appid="101507411" 
-    data-redirecturi="http://localhost:8080/blog/PageServlet?method=getPageBean" 
+    data-redirecturi="http://localhost:8080/blog/index.jsp&scope=all" 
     >
 </script>
 <script type="text/javascript">
@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        btnId:"qqLoginBtn"    //插入按钮的节点id
 });
 </script>	
---%>
+
 
 <script type="text/javascript">
 //下面这段if判断代码的作用是延迟加载，不写也可以，但为了好的体验建议写上，当然这个800是毫秒数，可以自定义 
@@ -136,7 +136,7 @@ qq_complete(c);
 				<div>
 					<div>
 						<span id="otherLoginSpan">其他账号登录：</span> <a
-							href='https://graph.qq.com/oauth2.0/show?which=Login&display=pc&client_id=101507411&response_type=token&scope=all&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fblog%2FPageServlet%3Fmethod%3DgetPageBean'>
+							href='https://graph.qq.com/oauth2.0/show?which=Login&display=pc&client_id=101507411&response_type=token&scope=all&redirect_uri=http://localhost:8080/blog/index.jsp'>
 							<img id="qqLoginBtn" alt="QQ" class="qqClass"
 							src="images/login/qq/bt_blue_24X24.png" onclick="toLogin()">
 						</a> <img alt="微信" class="wechatClass"
