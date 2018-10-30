@@ -50,7 +50,8 @@ public class PageServlet extends BaseServlet {
 		System.out.println(request.getParameter("openid"));
 		System.out.println(request.getParameter("otype"));
 		System.out.println(request.getParameter("token"));
-		
+		System.out.println(request.getParameter("gender"));
+		System.out.println(request.getParameter("figureurl_1"));
 		
 		
 		

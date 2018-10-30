@@ -48,7 +48,7 @@ alert("进入QC.Login.check方法");
 alert("成功回调");
                             QC.Login.getMe(function(openId, accessToken){
 alert("c");
-                                $.post('PageServlet?method=getPageBean',{name:s.data.nickname,openid:openId,otype:1,token:accessToken},function(data,status){
+                                $.post('PageServlet?method=getPageBean',{name:s.data.nickname,openid:openId,otype:1,token:accessToken,gender:s.data.gender,figureurl_1:s.data.figureurl_1},function(data,status){
 alert(data);
 alert(status);
                                     if(status=="success"){
