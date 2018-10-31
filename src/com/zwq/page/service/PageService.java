@@ -1,9 +1,6 @@
 package com.zwq.page.service;
 
 import java.sql.SQLException;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-
 import com.zwq.blog.domain.Blog;
 import com.zwq.page.dao.PageDao;
 import com.zwq.page.domain.PageBean;

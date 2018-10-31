@@ -91,8 +91,7 @@ public class BlogServlet extends BaseServlet {
 			return;
 		}				
 	}
-	
-	
+
 	public void getBlog(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException, SQLException {
 		Blog Formblog = CommonUtils.toBean(request.getParameterMap(), Blog.class);
 		int bid = Formblog.getBid();
@@ -133,7 +132,6 @@ public class BlogServlet extends BaseServlet {
 		}
 		
 	}	
-	
 	
 	public void getBlogBycidForHome(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException, SQLException {
 			List<Comment>commentList = null;

@@ -22,6 +22,55 @@ public class User {
     private String passwordProtected;//密码保护问题
     private String answer;//密码保护的答案
     
+    private String openid;
+    private String gender;
+    private String figureurl_2;
+    private String figureurl_qq_2;
+    
+    
+    
+    
+    
+
+	public String getOpenid() {
+		return openid;
+	}
+
+
+	public void setOpenid(String openid) {
+		this.openid = openid;
+	}
+
+
+	public String getGender() {
+		return gender;
+	}
+
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+
+	public String getFigureurl_2() {
+		return figureurl_2;
+	}
+
+
+	public void setFigureurl_2(String figureurl_2) {
+		this.figureurl_2 = figureurl_2;
+	}
+
+
+	public String getFigureurl_qq_2() {
+		return figureurl_qq_2;
+	}
+
+
+	public void setFigureurl_qq_2(String figureurl_qq_2) {
+		this.figureurl_qq_2 = figureurl_qq_2;
+	}
+
 
 	public String getUid() {
 		return uid;

@@ -16,8 +16,8 @@ public class UserDao {
      * @throws SQLException
      */
   public void add(User user) throws SQLException {
-	  String sql = "insert into users values(?,?,?,?,?,?,?,?,?)";
-	  Object[] params = {user.getUid(),user.getLoginname(),user.getLoginpass(),user.getEmail(),user.getStatus(),user.getActivationCode(),user.getTelephone(),user.getPasswordProtected(),user.getAnswer()};
+	  String sql = "insert into users values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	  Object[] params = {user.getUid(),user.getLoginname(),user.getLoginpass(),user.getEmail(),user.getStatus(),user.getActivationCode(),user.getTelephone(),user.getPasswordProtected(),user.getAnswer(),user.getOpenid(),user.getFigureurl_qq_2(),user.getFigureurl_2(),user.getGender()};
 	  qr.update(sql, params);
   }
     
@@ -134,4 +134,14 @@ public class UserDao {
 	return qr.query(sql, new BeanHandler<User>(User.class),params);  
   }
    
+  public User findByOpenId(String openId) throws SQLException {
+	  String sql = "select * from users where openid = ?";
+	  return qr.query(sql, new BeanHandler<User>(User.class),openId); 	  
+  }
+  
+  public boolean findByQQLoginName(String qqName) throws SQLException {
+	  String sql = "select count(*) from users where loginname = ?";
+	  Number number = (Number)qr.query(sql, new ScalarHandler(),qqName);
+	  return number.intValue()>0;	  
+  }  
 }

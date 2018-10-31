@@ -7,13 +7,14 @@ import java.util.Map;
 import java.util.Properties;
 import javax.mail.Session;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import com.zwq.user.dao.UserDao;
 import com.zwq.user.domain.User;
 import com.zwq.user.service.exception.UserException;
 import com.zwq.user.service.shortmessage.SendShortMessage;
-
 import cn.itcast.commons.CommonUtils;
 import cn.itcast.mail.Mail;
 import cn.itcast.mail.MailUtils;
@@ -244,5 +245,49 @@ public class UserService {
 			e.printStackTrace();
 		}
 		return errors;	
+	}
+
+	public boolean qqLogin(HttpServletRequest request,HttpServletResponse response ,User user) {
+		try {
+			
+			User user2 = userDao.findByOpenId(user.getOpenid());
+			/**
+			 * openID存在，将uid和openID保存到cookie
+			 */
+			if (user2 != null) {
+				Cookie cookie = new Cookie("uid",user2.getUid());
+				Cookie cookie2 = new Cookie("openid", user2.getOpenid());
+				cookie.setMaxAge(60*60*24*10);//cookie保存10天
+				request.getSession().setAttribute("sessionUser", user2);
+				response.addCookie(cookie);
+				response.addCookie(cookie2);
+				return true;
+			} else {//openID不存在
+				/**
+				 * 判断QQ用户名是否存在
+				 */
+				boolean  b = userDao.findByQQLoginName(user.getLoginname());
+			    if (!b) {
+			    	/*
+			    	 * QQ用户名不存在，保存用户信息
+			    	 */
+			    	User user3 = new User();
+			    	user3.setLoginname(user.getLoginname());
+			    	user3.setUid(CommonUtils.uuid());
+			    	user3.setOpenid(user.getOpenid());
+			    	user3.setFigureurl_2(user.getFigureurl_2());
+			    	user3.setFigureurl_qq_2(user.getFigureurl_qq_2());
+			    	user3.setStatus(1);
+			    	user3.setGender(user.getGender());
+			    	userDao.add(user3);
+					request.getSession().setAttribute("sessionUser", user3);
+					return true;
+			    }
+			}			
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		return false;
 	}	
 }
