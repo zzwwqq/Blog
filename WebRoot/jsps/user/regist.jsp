@@ -128,6 +128,4 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</table>
 			</form>
 		</div>
-	</div>
-</body>
-</html>
+		<%@include file="/jsps/footer.jsp"%>

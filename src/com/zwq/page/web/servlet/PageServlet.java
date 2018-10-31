@@ -39,7 +39,9 @@ public class PageServlet extends BaseServlet {
 			return currentPage;
 		}
 
-	
+
+		
+
 	/**
 	 * 获取PageBean，返回给jsp页面
 	 * @throws IOException 

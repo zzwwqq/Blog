@@ -1,0 +1,30 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="blog:WebRoot exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/blog_WebRoot_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="blog/web/WebRoot" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="blog" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="module" name="junit4" module-name="blog" />
+          <element id="library" level="module" name="itcast-tools-1.4.jar" module-name="blog" />
+          <element id="library" level="module" name="c3p0-0.9.2-pre1.jar" module-name="blog" />
+          <element id="library" level="module" name="commons-beanutils-1.8.3.jar" module-name="blog" />
+          <element id="library" level="module" name="commons-collections-3.0.jar" module-name="blog" />
+          <element id="library" level="module" name="commons-dbutils-1.4.jar" module-name="blog" />
+          <element id="library" level="module" name="commons-fileupload-1.2.2.jar" module-name="blog" />
+          <element id="library" level="module" name="commons-io-1.4.jar" module-name="blog" />
+          <element id="library" level="module" name="commons-lang-2.1.jar" module-name="blog" />
+          <element id="library" level="module" name="commons-logging-1.1.1.jar" module-name="blog" />
+          <element id="library" level="module" name="log4j-1.2.9.jar" module-name="blog" />
+          <element id="library" level="module" name="mail.jar" module-name="blog" />
+          <element id="library" level="module" name="mchange-commons-0.2.jar" module-name="blog" />
+          <element id="library" level="module" name="mysql-connector-java-5.1.13-bin.jar" module-name="blog" />
+          <element id="library" level="module" name="json-20160810.jar" module-name="blog" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import = "com.zwq.blog.domain.Blog" %>
+<%@page import="com.zwq.user.domain.User"%>
 <%@ page import = "com.zwq.category.domain.Category" %>
 <%@ page import = "com.zwq.comment.domain.Comment" %>
 <%@ page import = "com.zwq.page.domain.PageBean" %>
@@ -21,10 +22,23 @@
 </head>
 <body>
 <div id="container">	
-	<div id="banner">
-		<h1><a href="#">zwq的博客</a></h1>
+		<div id="banner"><!-- 浮动元素不会超过它上面的块元素 ，不会超过它上面浮动的兄弟元素，顶多一般齐-->
+	    <%
+	    	User  user = (User)request.getSession().getAttribute("sessionUser");
+	        if(user!= null) {
+	     %>
+	    <div style = "float:right; margin-right: 20px; ">
+	    欢迎<span style = "font-size:20px; font-weight:bold; color:yellow;"><%=user.getLoginname() %></span>用户!
+	    <a href = "" ><img style = "width:50px;height:50px;" alt = "QQ图片" src = "${sessionUser.figureurl_qq_2 }"/></a>
+	    <a style = "padding-left: 5px; font-size:20px; font-weight:bold;text-decoration:underline;" href="quit.do">退出</a>
+	    </div>		
+		
+		<% }%>	
+		<% if(user == null ) {  %>
+		<div style = "float:right; margin-right: 20px; "><a style = "text-decoration:underline;" href = "<c:url value = '/login.jsp'/>" >点击这里登录</a></div>						
+		<%} %>
+		<h1 style = "width :700px; "><a href="#">zwq的博客</a></h1>
 	</div>
-
 <div id="center">
 <div class="content">
 	<!-- begin entry -->
@@ -82,7 +96,7 @@
 </div><!-- end center -->
 <div id="right">
 <div class="sidebar">
-<a href = "PageServlet?method=getPageBean">Home</a>
+<a href = "Home.jsp">Home</a>
         <ul>
     	<li>欢迎访问zwq的博客</li>
       </ul>

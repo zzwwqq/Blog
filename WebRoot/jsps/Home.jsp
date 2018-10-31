@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.*" errorPage="" %>
+<%@page import="com.zwq.user.domain.User"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import = "com.zwq.blog.domain.Blog" %>
@@ -11,19 +12,40 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>zwq的博客</title>
 <link rel="stylesheet" type="text/css" href="<c:url value = '/css/display/style.css' />"/>
-<script type="text/javascript" src="<c:url value = '/js/page.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/js/qqLogin/qc_jssdk.js'/>"></script>
+<script type="text/javascript" src="/blog/js/qqLogin/qc_jssdk.js"></script>
+<script type="text/javascript" src="/blog/js/jquery-3.2.1.min.js"></script>
+
+<script type="text/javascript">
+function _go() {
+		var currentPage = $("#currentPageText").val();//获取文本框中输入的当前页码
+		if(!/^[1-9]\d*$/.test(currentPage)) {//对当前页码进行整数校验
+			alert('请输入正确的页码！');
+			return;
+		}
+		if(currentPage > ${pageBean.totalPageNum}) {//判断当前页码是否大于最大页
+			alert('请输入正确的页码！');
+			return;
+		}
+		   location = "PageServlet?method=getPageBean&currentPage="+currentPage;
+	}
+</script>
 </head>
 <body>
 <div id="container">	
-	<div id="banner"><!-- 浮动元素不会超过它上面的块元素 ，不会超过它上面浮动的兄弟元素，顶多一般齐-->
+		<div id="banner"><!-- 浮动元素不会超过它上面的块元素 ，不会超过它上面浮动的兄弟元素，顶多一般齐-->
 	    <%
-	    	String status = (String)request.getAttribute("status");
-	        if(status.equals("success")) {
+	    	User  user = (User)request.getSession().getAttribute("sessionUser");
+	        if(user!= null) {
 	     %>
-	    <div style = "float:right; margin-right: 20px; "><a href = "#" ><img alt = "QQ图片" src = "<c:url value ='/images/login/qq.jpg'/>"/></a></div>		
-		<% }%>
-		<% if(status == null || status.trim().isEmpty()) {  %>
+	    <div style = "float:right; margin-right: 20px; ">
+	    欢迎<span style = "font-size:20px; font-weight:bold; color:yellow;"><%=user.getLoginname() %></span>用户!
+	    <a href = "" ><img style = "width:50px;height:50px;" alt = "QQ图片" src = "${sessionUser.figureurl_qq_2 }"/></a>
+	    <a style = "padding-left: 5px; font-size:20px; font-weight:bold;text-decoration:underline;" href="quit.do">退出</a>
+	    </div>		
+		
+		<% }%>	
+		<% if(user == null ) {  %>
+
 		<div style = "float:right; margin-right: 20px; "><a style = "text-decoration:underline;" href = "<c:url value = '/login.jsp'/>" >点击这里登录</a></div>						
 		<%} %>
 		<h1 style = "width :700px; "><a href="#">zwq的博客</a></h1>

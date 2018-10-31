@@ -537,5 +537,54 @@ public class UserServlet extends HttpServlet{
 		//手动销毁session
 		request.getSession().invalidate();
 		request.getRequestDispatcher("/jsps/user/login.jsp").forward(request, response);
-	}			
+	}	
+	
+	/**
+	 * 	
+	 * @param request
+	 * @param response
+	 */
+	public void QQLogin(HttpServletRequest request,HttpServletResponse response) {
+		String name = request.getParameter("name");
+		String openid = request.getParameter("openid");
+		String otype = request.getParameter("otype");
+		String token = request.getParameter("token");
+		String gender = request.getParameter("gender");
+		String figureurl_qq_1 = request.getParameter("figureurl_qq_1");
+		String figureurl_qq_2 = request.getParameter("figureurl_qq_2");
+		String figureurl_1 = request.getParameter("figureurl_1");
+		String figureurl_2 = request.getParameter("figureurl_2");
+		String figureurl = request.getParameter("figureurl");
+		String ret = request.getParameter("ret");
+		System.out.println("===============================================");
+		System.out.println("nickname:用户名："+name);
+		System.out.println("openid："+openid);
+		System.out.println("otype："+otype);
+		System.out.println("token："+token);
+		System.out.println("gender:性别。 如果获取不到则默认返回男："+gender);
+		System.out.println("figureurl_qq_1:大小为40×40像素的QQ头像URL："+figureurl_qq_1);
+		System.out.println("figureurl_qq_2:大小为100×100像素的QQ头像URL。需要注意，不是所有的用户都拥有QQ的100x100的头像，但40x40像素则是一定会有："+figureurl_qq_2);
+		System.out.println("figureurl_1:大小为50×50像素的QQ空间头像URL："+figureurl_1);
+		System.out.println("figureurl_2:大小为100×100像素的QQ空间头像URL："+figureurl_2);
+		System.out.println("figureurl:大小为30×30像素的QQ空间头像URL："+figureurl);
+		System.out.println("ret:返回码："+ret);
+		User user = CommonUtils.toBean(request.getParameterMap(), User.class);
+		user.setLoginname(name);
+		userService.qqLogin(request,response,user);
+	}
+
+	
+	public void AfterqqLoginSuccessforword(HttpServletRequest request,HttpServletResponse response) {
+		try {
+			
+			request.getRequestDispatcher("Home.jsp").forward(request, response);
+		} catch (ServletException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+	}
+		
 }
