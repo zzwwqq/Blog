@@ -16,7 +16,7 @@
     <td width="774" height="41"><%=blog.getCreated_time() %></td>
   </tr>
   <tr>
-    <td><a href = "BlogServlet?method=getBlog&bid=<%=blog.getBid() %>"><%=blog.getTitle() %></a></td>
+    <td><a href = "AdminBlogServlet?method=displayBlog&bid=<%=blog.getBid() %>"><%=blog.getTitle() %></a></td>
   </tr>
   <tr>
     <td height="42">

@@ -41,7 +41,7 @@ public class AdminBlogDao {
 	}
 	
 	public Blog findByBidGetBlog(int bid) throws SQLException {
-		String sql = "select * from blog where bid =?";
+		String sql = "select bid,category_id,title,content,created_time,cname from blog b,category c where b.`category_id`=c.`cid`and bid =?";
 		return qr.query(sql, new BeanHandler<Blog>(Blog.class),bid);
 	}	
 	

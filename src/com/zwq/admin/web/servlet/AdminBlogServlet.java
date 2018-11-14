@@ -66,6 +66,37 @@ public class AdminBlogServlet extends BaseServlet {
 	}
 	
 	
+	/**
+	 * 管理员登录后主页点击标题，显示该博客内容详情
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public void displayBlog(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		Admin admin = (Admin)request.getSession().getAttribute("sessionUser");
+		if(admin == null) {
+			request.getRequestDispatcher("/jsps/admin/adminLogin.jsp").forward(request, response);;
+		}
+		String tempbid = request.getParameter("bid");
+		int bid = Integer.parseInt(tempbid);
+		try {
+			Blog blog = adminBlogService.getBlog(bid);
+			request.setAttribute("blog", blog);
+			request.getRequestDispatcher("/jsps/admin/displayBlog.jsp").forward(request, response);
+		} catch (BlogException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+	}
+	
+	
+	
 	public void deleteBlog(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 		Admin admin = (Admin)request.getSession().getAttribute("sessionUser");
 		if(admin == null) {

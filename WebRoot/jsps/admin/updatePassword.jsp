@@ -13,6 +13,7 @@
   
   }
   </script>
+  <html style = "background: url('/blog/images/background/001.gif')"></html>
 <h2>修改密码</h2>
 <center>
 <div id = "mainDiv">
