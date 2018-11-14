@@ -39,7 +39,7 @@ function _go() {
 	     %>
 	    <div style = "float:right; margin-right: 20px; ">
 	    欢迎<span style = "font-size:20px; font-weight:bold; color:yellow;"><%=user.getLoginname() %></span>用户!
-	    <a href = "" ><img style = "width:50px;height:50px;" alt = "QQ图片" src = "${sessionUser.figureurl_qq_2 }"/></a>
+	    <img style = "width:50px;height:50px;" alt = "图片" src = "${sessionUser.figureurl_qq_2 }"/>
 	    <a style = "padding-left: 5px; font-size:20px; font-weight:bold;text-decoration:underline;" href="quit.do">退出</a>
 	    </div>		
 		

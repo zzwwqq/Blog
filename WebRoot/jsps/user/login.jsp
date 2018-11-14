@@ -41,9 +41,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 <!-- QQ互联登录 -->	
 <script type="text/javascript"  charset="utf-8"
-    src="/blog/js/qqLogin/qc_jssdk.js" 
-    data-appid="101507411" 
-    data-redirecturi="http://localhost:8080/blog/index.jsp&scope=all" 
+    src="<%=basePath%>/js/qqLogin/qc_jssdk.js" 
+    data-appid="101524188" 
+    data-redirecturi="http://zzwwqq.xyz:8080/blog/index.jsp&scope=all" 
     >
 </script>
 </head>
@@ -99,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div>
 					<div>
 						<span id="otherLoginSpan">其他账号登录：</span> <a
-							href='https://graph.qq.com/oauth2.0/show?which=Login&display=pc&client_id=101507411&response_type=token&scope=all&redirect_uri=http://localhost:8080/blog/index.jsp'>
+							href='https://graph.qq.com/oauth2.0/show?which=Login&display=pc&client_id=101524188&response_type=token&scope=all&redirect_uri=http://zzwwqq.xyz:8080/blog/index.jsp'>
 							<img id="qqLoginBtn" alt="QQ" class="qqClass"
 							src="images/login/qq/bt_blue_24X24.png" onclick="toLogin()">
 						</a> <img alt="微信" class="wechatClass"

@@ -310,7 +310,7 @@ public class UserServlet extends HttpServlet{
 		if (loginname == null|| loginname.trim().isEmpty()) {
 			errors.put("loginnameError", "用户名不能为空！");
 		}
-		if (loginname.length() < 3 || loginname.length() > 20) {
+		else if (loginname.length() < 3 || loginname.length() > 20) {
 			errors.put("loginnameError", "用户名长度必须在3~20之间！");
 		}
 			
@@ -337,10 +337,10 @@ public class UserServlet extends HttpServlet{
 		if (verifyCode == null || verifyCode.trim().isEmpty()) {
 			errors.put("verifyCodeError", "验证码不能为空！");
 		}
-		if (verifyCode.length() != 4) {
+		else if (verifyCode.length() != 4) {
 			errors.put("verifyCodeError","验证码长度不对!");
 		}
-		if(!verifyCode.equalsIgnoreCase(vCode)) {
+		else if(!verifyCode.equalsIgnoreCase(vCode)) {
 			errors.put("verifyCodeError", "验证码错误!");
 		}
 		return errors;		

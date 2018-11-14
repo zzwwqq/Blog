@@ -7,16 +7,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>                              
+  <html style = "background: url('<%=basePath%>/images/background/001.gif')"></html>
     <head>
-
+<base href="<%=basePath%>">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
         <title> QQConnect JSDK - redirectURI </title>
 
-        <script src="/blog/js/jquery-3.2.1.min.js"></script>
+        <script src="<%=basePath%>/js/jquery-3.2.1.min.js"></script>
 
-        <script type="text/javascript" src="/blog/js/qqLogin/qc_jssdk.js" data-appid="101507411" data-redirecturi="http://localhost:8080/blog/index.jsp&scope=all" charset="utf-8"></script>
+        <script type="text/javascript" src="<%=basePath%>/js/qqLogin/qc_jssdk.js" 
+        data-appid="101524188" data-redirecturi="http://zzwwqq.xyz:8080/blog/index.jsp&scope=all" charset="utf-8"></script>
 
         <style type="text/css">
 
@@ -45,7 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             QC.Login.getMe(function(openId, accessToken){
                                 $.post('QQLogin.do',{name:s.data.nickname,openid:openId,otype:1,token:accessToken,gender:s.data.gender,figureurl_qq_2:s.data.figureurl_qq_2,figureurl_qq_1:s.data.figureurl_qq_1,ret:s.data.ret,figureurl:s.data.figureurl,figureurl_1:s.data.figureurl_1,figureurl_2:s.data.figureurl_2},function(data,status){
                                     if(status=="success") {
-                                        alert(s.data.nickname+"恭喜你,登录成功!");
+                                        //alert(s.data.nickname+"恭喜你,登录成功!");
                                         location.href = "AfterqqLoginSuccessforword.do";
                                     } else {
                                         alert("获取用户信息成功！登录失败！");
