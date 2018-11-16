@@ -54,14 +54,15 @@ PageBean<Blog> pageBean;
     String content = null;
     String newContent = null;
 %>
-	    <%
-	    	User user = (User)request.getSession().getAttribute("sessionqqUser");
-	       	        if(user != null) {//用户存在
-	           if(user.getFigureurl_qq_2() != null) {//图片不为空
+	   	   <!-- 用户账号登录 -->
+	     <%
+	    	User  user = (User)request.getSession().getAttribute("sessionUser");
+	        if(user != null) {//用户存在
+	           if(user.getFigureurl_qq_2() != null ) {//图片不为空
 	     %>
 	    <div style = "float:right; margin-right: 20px; ">
 	    欢迎<span style = "font-size:20px; font-weight:bold; color:yellow;"><%=user.getLoginname() %></span>用户!
-	    <img style = "width:50px;height:50px;" alt = "图片" src = "${sessionqqUser.figureurl_qq_2 }"/>
+	    <img style = "width:50px;height:50px;" alt = "图片" src = "${sessionUser.figureurl_qq_2 }"/>
 	    <a style = "padding-left: 5px; font-size:20px; font-weight:bold;text-decoration:underline;" href="quit.do">退出</a>
 	    </div>			
 		<% 
@@ -69,16 +70,48 @@ PageBean<Blog> pageBean;
 		%>   
 		   <div style = "float:right; margin-right: 20px; ">
 	    欢迎<span style = "font-size:20px; font-weight:bold; color:yellow;"><%=user.getLoginname() %></span>用户!
-	    <img style = "width:50px;height:50px;" alt = "图片" src = "<%=basePath%>/images/avtar.png"/>
-	    <a href= "<%=basePath%>/jsps/user/qqBind.jsp">绑定已有账号</a>
+	    <img style = "width:50px;height:50px;" alt = "图片" src = "<%=basePath%>images/avtar.png"/>
 	    <a style = "padding-left: 5px; font-size:20px; font-weight:bold;text-decoration:underline;" href="quit.do">退出</a>
 	    </div>			      
 		<%
 		          } 
 		   }
-		%>        
+		%>   
 
-		<% if(user == null ) {  %>
+		<%-- qq登录--%>		
+		<%
+	    	User  user2 = (User)request.getSession().getAttribute("sessionqqUser");
+	        int bindStatus=-1;
+	        if(user2 != null) {//用户存在
+	        //账号绑定状态
+	        String tempBindStatus = String.valueOf(request.getSession().getAttribute("bindStatus"));
+	        if(tempBindStatus != null) {	        
+	             bindStatus = Integer.parseInt(tempBindStatus);  
+	             if(bindStatus == 1) {//已绑定	                     
+	     %>
+	    <div style = "float:right; margin-right: 20px; ">
+	    欢迎<span style = "font-size:20px; font-weight:bold; color:yellow;"><%=user2.getLoginname() %></span>用户!
+	    <img style = "width:50px;height:50px;" alt = "图片" src = "${sessionqqUser.figureurl_qq_2 }"/>
+	    <a style = "padding-left: 5px; font-size:20px; font-weight:bold;text-decoration:underline;" href="quit.do">退出</a>
+	    </div>			
+		<% 
+		          } 
+		          if(bindStatus==0) {//用户存在，未绑定
+		%>   
+		   <div style = "float:right; margin-right: 20px; ">
+	    欢迎<span style = "font-size:20px; font-weight:bold; color:yellow;"><%=user2.getLoginname() %></span>用户!
+	    <img style = "width:50px;height:50px;" alt = "图片" src = "${sessionqqUser.figureurl_qq_2 }"/>
+	    <a href= "<%=basePath%>/jsps/user/qqBind.jsp">去绑定已有账号</a>	   
+	    <a style = "padding-left: 5px; font-size:20px; font-weight:bold;text-decoration:underline;" href="quit.do">退出</a>
+	    </div>			      
+		<%
+		          } 
+		   }
+		  }
+		%>        
+		    
+		<% if(user == null && user2 == null) {  %>
+
 		<div style = "float:right; margin-right: 20px; "><a style = "text-decoration:underline;" href = "<c:url value = '/login.jsp'/>" >点击这里登录</a></div>						
 		<%} %>
 		<h1 style = "width :700px; "><a href="#">zwq的博客</a></h1>

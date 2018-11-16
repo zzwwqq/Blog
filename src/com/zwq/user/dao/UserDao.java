@@ -159,4 +159,31 @@ public class UserDao {
   }
   
   
+  /**
+   * 验证QQ与本地账户是否绑定
+   * @param sessionqqUser
+   * @param userForm
+   * @return
+   * @throws SQLException
+   */
+  public int findByOpenID(String openID) throws SQLException {
+	String sql = "select count(*) from users where openid = ?";
+	Object obj = qr.query(sql,new ScalarHandler(),openID); 
+	Number number = (Number)obj;
+	return number.intValue();		  	  
+  } 
+  
+  
+  /**
+   * 验证QQ与本地账户是否绑定
+   * @param sessionqqUser
+   * @param userForm
+   * @return
+   * @throws SQLException
+   */
+  public User findByOpenID2(String openID) throws SQLException {
+	String sql = "select * from users where openid = ?";
+	return qr.query(sql,new BeanHandler<User>(User.class),openID); 
+			  	  
+  } 
 }

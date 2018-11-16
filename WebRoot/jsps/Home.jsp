@@ -39,6 +39,8 @@ function _go() {
 <body>
 <div id="container">	
 		<div id="banner"><!-- 浮动元素不会超过它上面的块元素 ，不会超过它上面浮动的兄弟元素，顶多一般齐-->
+	   
+	   <!-- 用户账号登录 -->
 	     <%
 	    	User  user = (User)request.getSession().getAttribute("sessionUser");
 	        if(user != null) {//用户存在
@@ -50,7 +52,7 @@ function _go() {
 	    <a style = "padding-left: 5px; font-size:20px; font-weight:bold;text-decoration:underline;" href="quit.do">退出</a>
 	    </div>			
 		<% 
-		        } else {//用户存在，但图片为空，显示 默认图片
+		        } else {//用户存在，但图片为空，显示默认图片
 		%>   
 		   <div style = "float:right; margin-right: 20px; ">
 	    欢迎<span style = "font-size:20px; font-weight:bold; color:yellow;"><%=user.getLoginname() %></span>用户!
@@ -61,27 +63,41 @@ function _go() {
 		          } 
 		   }
 		%>   
-			<%
+		
+		
+		
+		
+		
+		<%-- qq登录--%>		
+		<%
 	    	User  user2 = (User)request.getSession().getAttribute("sessionqqUser");
+	        int bindStatus=-1;
 	        if(user2 != null) {//用户存在
-	           if(user2.getFigureurl_qq_2() != null ) {//图片不为空
+	        //账号绑定状态
+	        String tempBindStatus = String.valueOf(request.getSession().getAttribute("bindStatus"));
+	        if(tempBindStatus != null) {	        
+	             bindStatus = Integer.parseInt(tempBindStatus);  
+	             if(bindStatus == 1) {//已绑定	                     
 	     %>
 	    <div style = "float:right; margin-right: 20px; ">
-	    欢迎<span style = "font-size:20px; font-weight:bold; color:yellow;"><%=user.getLoginname() %></span>用户!
-	    <img style = "width:50px;height:50px;" alt = "图片" src = "${sessionUser.figureurl_qq_2 }"/>
+	    欢迎<span style = "font-size:20px; font-weight:bold; color:yellow;"><%=user2.getLoginname() %></span>用户!
+	    <img style = "width:50px;height:50px;" alt = "图片" src = "${sessionqqUser.figureurl_qq_2 }"/>
 	    <a style = "padding-left: 5px; font-size:20px; font-weight:bold;text-decoration:underline;" href="quit.do">退出</a>
 	    </div>			
 		<% 
-		        } else {//用户存在，但图片为空，显示 默认图片
+		          } 
+		          if(bindStatus==0) {//用户存在，未绑定
 		%>   
 		   <div style = "float:right; margin-right: 20px; ">
-	    欢迎<span style = "font-size:20px; font-weight:bold; color:yellow;"><%=user.getLoginname() %></span>用户!
-	    <img style = "width:50px;height:50px;" alt = "图片" src = "<%=basePath%>images/avtar.png"/>
+	    欢迎<span style = "font-size:20px; font-weight:bold; color:yellow;"><%=user2.getLoginname() %></span>用户!
+	    <img style = "width:50px;height:50px;" alt = "图片" src = "${sessionqqUser.figureurl_qq_2 }"/>
+	    <a href= "<%=basePath%>/jsps/user/qqBind.jsp">去绑定已有账号</a>	   
 	    <a style = "padding-left: 5px; font-size:20px; font-weight:bold;text-decoration:underline;" href="quit.do">退出</a>
 	    </div>			      
 		<%
 		          } 
 		   }
+		  }
 		%>        
 		    
 		<% if(user == null && user2 == null) {  %>
@@ -89,14 +105,7 @@ function _go() {
 		<div style = "float:right; margin-right: 20px; "><a style = "text-decoration:underline;" href = "<c:url value = '/login.jsp'/>" >点击这里登录</a></div>						
 		<%} %>
 		
-		
-		
-	
-		
-		
-		
-		
-		
+
 		<h1 style = "width :700px; "><a href="#">zwq的博客</a></h1>
 	</div>
 <div id="center">

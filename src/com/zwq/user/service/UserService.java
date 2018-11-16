@@ -275,12 +275,13 @@ public class UserService {
 			 * openID存在，将uid和openID保存到cookie
 			 */
 			if (user2 != null) {
-				String loginpass = user2.getLoginpass();
-				//判断是否绑定账号，如果曾经用QQ登录过但没有绑定账号，那么密码应该为空
-				if (loginpass == null) {//未绑定
+				String openId = user2.getOpenid();
+				//判断是否绑定账号，如果曾经用QQ登录过但没有绑定账号，那么其他账号中不存在openID,通过openID查询得到只有一条记录，第二种情况，用户QQ已经和账号绑定，但是如果此时从数据库删除QQ用户，那么此时通过openID查询也只有一条记录
+				if (userDao.findByOpenID(user.getOpenid()) == 1 && userDao.findByOpenId(user.getOpenid()).getLoginname() != user.getLoginname()) {//未绑定
 					bindStatus = 0;//设置绑定状态标志（绑定状态为0表示未绑定,1为绑定）
 					request.getSession().setAttribute("bindStatus", bindStatus);
-				} else {//已经绑定
+				} if(userDao.findByOpenID(user.getOpenid()) > 1)
+				{//已经绑定
 					bindStatus = 1;//设置绑定状态标志（绑定状态为0表示未绑定,1为绑定）
 					request.getSession().setAttribute("bindStatus", bindStatus);	
 				}
