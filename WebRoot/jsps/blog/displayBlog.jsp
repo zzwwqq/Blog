@@ -1,5 +1,4 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.*" errorPage="" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import = "com.zwq.blog.domain.Blog" %>
@@ -12,8 +11,21 @@
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
 <head>
+<!-- fckeditor -->
+<script type="text/javascript" src="<c:url value='/fckeditor/fckeditor.js'/>"></script>
+<script type="text/javascript">
+window.onload = function()
+{
+var oFCKeditor = new FCKeditor( 'content','100%','400','Default' ) ;
+oFCKeditor.BasePath = "/blog/fckeditor/";
+oFCKeditor.ReplaceTextarea() ;
+}
+</script>
+<!-- end of fckeditor -->
+
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>zwq的博客</title>
@@ -23,17 +35,28 @@
 <body>
 <div id="container">	
 		<div id="banner"><!-- 浮动元素不会超过它上面的块元素 ，不会超过它上面浮动的兄弟元素，顶多一般齐-->
-	    <%
+	     <%
 	    	User  user = (User)request.getSession().getAttribute("sessionUser");
-	        if(user!= null) {
+	        if(user != null) {//用户存在
+	           if(user.getFigureurl_qq_2() != null ) {//图片不为空
 	     %>
 	    <div style = "float:right; margin-right: 20px; ">
 	    欢迎<span style = "font-size:20px; font-weight:bold; color:yellow;"><%=user.getLoginname() %></span>用户!
-	    <a href = "" ><img style = "width:50px;height:50px;" alt = "QQ图片" src = "${sessionUser.figureurl_qq_2 }"/></a>
+	    <img style = "width:50px;height:50px;" alt = "图片" src = "${sessionUser.figureurl_qq_2 }"/>
 	    <a style = "padding-left: 5px; font-size:20px; font-weight:bold;text-decoration:underline;" href="quit.do">退出</a>
-	    </div>		
-		
-		<% }%>	
+	    </div>			
+		<% 
+		        } else {//用户存在，但图片为空，显示 默认图片
+		%>   
+		   <div style = "float:right; margin-right: 20px; ">
+	    欢迎<span style = "font-size:20px; font-weight:bold; color:yellow;"><%=user.getLoginname() %></span>用户!
+	    <img style = "width:50px;height:50px;" alt = "图片" src = "<%=basePath%>images/avtar.png"/>
+	    <a style = "padding-left: 5px; font-size:20px; font-weight:bold;text-decoration:underline;" href="quit.do">退出</a>
+	    </div>			      
+		<%
+		          } 
+		   }
+		%>        
 		<% if(user == null ) {  %>
 		<div style = "float:right; margin-right: 20px; "><a style = "text-decoration:underline;" href = "<c:url value = '/login.jsp'/>" >点击这里登录</a></div>						
 		<%} %>

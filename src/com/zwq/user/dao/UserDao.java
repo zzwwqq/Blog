@@ -144,4 +144,19 @@ public class UserDao {
 	  Number number = (Number)qr.query(sql, new ScalarHandler(),qqName);
 	  return number.intValue()>0;	  
   }  
+  
+  /**
+   * QQ与本地账户绑定
+   * @param sessionqqUser
+   * @param userForm
+   * @return
+   * @throws SQLException
+   */
+  public int qqBind(User sessionqqUser,User userForm) throws SQLException {
+	  String sql = "update users set openid =?,figureurl_qq_2=?,figureurl_2=?,gender=? where loginname=? and loginpass=?";
+	  Object[]params = new Object[] {sessionqqUser.getOpenid(),sessionqqUser.getFigureurl_qq_2(),sessionqqUser.getFigureurl_2(),sessionqqUser.getGender(),userForm.getLoginname(),userForm.getLoginpass()};
+	  return qr.update(sql, params);	  
+  }
+  
+  
 }

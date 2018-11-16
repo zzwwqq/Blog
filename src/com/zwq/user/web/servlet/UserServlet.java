@@ -284,7 +284,7 @@ public class UserServlet extends HttpServlet{
 		request.getSession().setAttribute("sessionUser", user);
 		URLEncoder.encode(user.getLoginname(), "UTF-8");
 		Cookie cookie = new Cookie("loginname", user.getLoginname());
-		cookie.setMaxAge(60*60*24*10);//cookie保存10天
+		cookie.setMaxAge(60*10);//cookie保存10分钟（Cookie最小单位为秒）
 		response.addCookie(cookie);
 		request.setAttribute("code", "success");
 		request.setAttribute("msg", "恭喜您登录成功！");
@@ -540,7 +540,7 @@ public class UserServlet extends HttpServlet{
 	}	
 	
 	/**
-	 * 	
+	 * qq登录
 	 * @param request
 	 * @param response
 	 */
@@ -556,27 +556,30 @@ public class UserServlet extends HttpServlet{
 		String figureurl_2 = request.getParameter("figureurl_2");
 		String figureurl = request.getParameter("figureurl");
 		String ret = request.getParameter("ret");
-		System.out.println("===============================================");
-		System.out.println("nickname:用户名："+name);
-		System.out.println("openid："+openid);
-		System.out.println("otype："+otype);
-		System.out.println("token："+token);
-		System.out.println("gender:性别。 如果获取不到则默认返回男："+gender);
-		System.out.println("figureurl_qq_1:大小为40×40像素的QQ头像URL："+figureurl_qq_1);
-		System.out.println("figureurl_qq_2:大小为100×100像素的QQ头像URL。需要注意，不是所有的用户都拥有QQ的100x100的头像，但40x40像素则是一定会有："+figureurl_qq_2);
-		System.out.println("figureurl_1:大小为50×50像素的QQ空间头像URL："+figureurl_1);
-		System.out.println("figureurl_2:大小为100×100像素的QQ空间头像URL："+figureurl_2);
-		System.out.println("figureurl:大小为30×30像素的QQ空间头像URL："+figureurl);
-		System.out.println("ret:返回码："+ret);
+//		System.out.println("===============================================");
+//		System.out.println("nickname:用户名："+name);
+//		System.out.println("openid："+openid);
+//		System.out.println("otype："+otype);
+//		System.out.println("token："+token);
+//		System.out.println("gender:性别。 如果获取不到则默认返回男："+gender);
+//		System.out.println("figureurl_qq_1:大小为40×40像素的QQ头像URL："+figureurl_qq_1);
+//		System.out.println("figureurl_qq_2:大小为100×100像素的QQ头像URL。需要注意，不是所有的用户都拥有QQ的100x100的头像，但40x40像素则是一定会有："+figureurl_qq_2);
+//		System.out.println("figureurl_1:大小为50×50像素的QQ空间头像URL："+figureurl_1);
+//		System.out.println("figureurl_2:大小为100×100像素的QQ空间头像URL："+figureurl_2);
+//		System.out.println("figureurl:大小为30×30像素的QQ空间头像URL："+figureurl);
+//		System.out.println("ret:返回码："+ret);
+		
+		//保存获取到的QQ用户信息
 		User user = CommonUtils.toBean(request.getParameterMap(), User.class);
-		user.setLoginname(name);
+		user.setLoginname(name);//因为User对象中没有名为name的属性，所以此处需要单独赋值
+		//保存获取到的QQ用户信息到session中
+		request.getSession().setAttribute("sessionqqUser", user);
 		userService.qqLogin(request,response,user);
 	}
 
 	
 	public void AfterqqLoginSuccessforword(HttpServletRequest request,HttpServletResponse response) {
-		try {
-			
+		try {			
 			request.getRequestDispatcher("Home.jsp").forward(request, response);
 		} catch (ServletException e) {
 			// TODO 自动生成的 catch 块
@@ -586,5 +589,90 @@ public class UserServlet extends HttpServlet{
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	/**
+	 * 绑定账号
+	 * @throws IOException 
+	 * @throws ServletException 
+	 */
+	private void qqBind(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		/*
+		 * 封装表单数据
+		 * 用户名，密码
+		 */
+		User userForm = CommonUtils.toBean(request.getParameterMap(), User.class);
 		
+		/*
+		 * 校验
+		 * 校验不通过情况：账号已绑定，账号不存在，格式不对
+		 */
+		Map<String, String>errors =validateqqBind(userForm, request.getSession());
+		if (errors.size() > 0) {
+			request.setAttribute("userForm", userForm);
+			request.setAttribute("errors", errors);
+			request.getRequestDispatcher("/jsps/user/qqBind.jsp").forward(request, response);;
+			return;
+		} 
+		
+		/*
+		 * 校验通过,调用service层方法，
+		 * 保存成功信息，转发到信息板
+		 */
+		User user = (User) request.getSession().getAttribute("sessionqqUser");
+		
+		if (userService.qqBind(request, response, user,userForm)) {
+			request.setAttribute("code", "success");
+			request.setAttribute("msg", "账号绑定成功！");			
+		} else {
+			request.setAttribute("code", "error");
+			request.setAttribute("msg", "账号绑定失败！");
+		}
+		request.getRequestDispatcher("/jsps/user/msg.jsp").forward(request, response);
+		return;
+	}
+	
+	
+	/**
+	 * qqBind校验
+	 * @return
+	 */
+	private Map<String, String> validateqqBind(User userForm,HttpSession session) {
+		Map<String, String>errors=new HashMap<String, String>();
+		String loginname = userForm.getLoginname();
+		String loginpass = userForm.getLoginpass();
+		User user = new User();
+		/*
+		 * 验证用户名
+		 */
+		if (loginname == null|| loginname.trim().isEmpty()) {
+			errors.put("loginnameError", "用户名不能为空！");
+		}
+		else if (loginname.length() < 3 || loginname.length() > 20) {
+			errors.put("loginnameError", "用户名长度必须在3~20之间！");
+		}
+			
+		/*
+		 * 验证密码
+		 */
+		user = userService.login(loginname, loginpass);
+		
+		if(loginpass == null || loginpass.trim().isEmpty()) {
+			errors.put("loginpassError", "密码不能为空！");
+		}
+		if(user == null) {
+			errors.put("loginpassError", "账号不存在!");		
+		} 
+	    else {
+			if (user.getStatus() == 0) {
+				errors.put("loginpassError", "账号未激活，请查看邮件激活!");
+			}
+			
+			if (user.getFigureurl_qq_2() != null) {
+				errors.put("loginpassError", "账号已被绑定!");
+			}		
+		}
+		return errors;		
+	}		
 }

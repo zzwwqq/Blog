@@ -247,22 +247,56 @@ public class UserService {
 		return errors;	
 	}
 
+	public boolean qqBind(HttpServletRequest request,HttpServletResponse response ,User sessionqqUser,User userForm) {
+		try {
+			int affectRowNum = userDao.qqBind(sessionqqUser, userForm);
+			if (affectRowNum > 0) {
+				return true;
+			}	
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}				
+		return false;
+	}	
+	
+	/**
+	 * qq登录
+	 * @param request
+	 * @param response
+	 * @param user
+	 * @return
+	 */
 	public boolean qqLogin(HttpServletRequest request,HttpServletResponse response ,User user) {
 		try {
-			
+			int bindStatus =-1;
 			User user2 = userDao.findByOpenId(user.getOpenid());
 			/**
 			 * openID存在，将uid和openID保存到cookie
 			 */
 			if (user2 != null) {
+				String loginpass = user2.getLoginpass();
+				//判断是否绑定账号，如果曾经用QQ登录过但没有绑定账号，那么密码应该为空
+				if (loginpass == null) {//未绑定
+					bindStatus = 0;//设置绑定状态标志（绑定状态为0表示未绑定,1为绑定）
+					request.getSession().setAttribute("bindStatus", bindStatus);
+				} else {//已经绑定
+					bindStatus = 1;//设置绑定状态标志（绑定状态为0表示未绑定,1为绑定）
+					request.getSession().setAttribute("bindStatus", bindStatus);	
+				}
+				//保存用户信息到cookie
 				Cookie cookie = new Cookie("uid",user2.getUid());
 				Cookie cookie2 = new Cookie("openid", user2.getOpenid());
-				cookie.setMaxAge(60*60*24*10);//cookie保存10天
-				request.getSession().setAttribute("sessionUser", user2);
+				cookie.setMaxAge(60*10);//cookie保存10分钟
 				response.addCookie(cookie);
-				response.addCookie(cookie2);
+				response.addCookie(cookie2);			
+				//System.out.println(user2.getLoginname());
 				return true;
-			} else {//openID不存在
+				
+			/*
+			 * openID不存在
+		     */
+			} else {
 				/**
 				 * 判断QQ用户名是否存在
 				 */
@@ -272,15 +306,20 @@ public class UserService {
 			    	 * QQ用户名不存在，保存用户信息
 			    	 */
 			    	User user3 = new User();
-			    	user3.setLoginname(user.getLoginname());
-			    	user3.setUid(CommonUtils.uuid());
-			    	user3.setOpenid(user.getOpenid());
-			    	user3.setFigureurl_2(user.getFigureurl_2());
-			    	user3.setFigureurl_qq_2(user.getFigureurl_qq_2());
-			    	user3.setStatus(1);
-			    	user3.setGender(user.getGender());
+			    	user3.setLoginname(user.getLoginname());//用户名
+			    	user3.setUid(CommonUtils.uuid());//用户id---主键
+			    	user3.setOpenid(user.getOpenid());//openID
+			    	user3.setFigureurl_2(user.getFigureurl_2());//QQ空间图片
+			    	user3.setFigureurl_qq_2(user.getFigureurl_qq_2());//QQ图片100*100
+			    	user3.setStatus(1);//账号激活状态
+			    	user3.setGender(user.getGender());//性别
+			    	//QQ用户信息存到数据库
 			    	userDao.add(user3);
-					request.getSession().setAttribute("sessionUser", user3);
+			    	
+			    	bindStatus = 0;//设置绑定状态标志（绑定状态为0表示未绑定,1为绑定）
+					request.getSession().setAttribute("bindStatus", bindStatus);	
+			    	//保存用户信息到session
+					request.getSession().setAttribute("sessionqqUser", user3);
 					return true;
 			    }
 			}			

@@ -10,9 +10,15 @@
 <%@ page import = "com.zwq.comment.dao.CommentDao" %>
 <%@page import="com.zwq.user.domain.User"%>
 
+<%-- QQ用户登录 --%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>zwq的博客</title>
 <link rel="stylesheet" type="text/css" href="<c:url value = '/css/display/style.css' />"/>
@@ -49,16 +55,29 @@ PageBean<Blog> pageBean;
     String newContent = null;
 %>
 	    <%
-	    	User  user = (User)request.getSession().getAttribute("sessionUser");
-	        if(user!= null) {
+	    	User user = (User)request.getSession().getAttribute("sessionqqUser");
+	       	        if(user != null) {//用户存在
+	           if(user.getFigureurl_qq_2() != null) {//图片不为空
 	     %>
 	    <div style = "float:right; margin-right: 20px; ">
 	    欢迎<span style = "font-size:20px; font-weight:bold; color:yellow;"><%=user.getLoginname() %></span>用户!
-	    <img style = "width:50px;height:50px;" alt = "图片" src = "${sessionUser.figureurl_qq_2 }"/>
+	    <img style = "width:50px;height:50px;" alt = "图片" src = "${sessionqqUser.figureurl_qq_2 }"/>
 	    <a style = "padding-left: 5px; font-size:20px; font-weight:bold;text-decoration:underline;" href="quit.do">退出</a>
-	    </div>		
-		
-		<% }%>	
+	    </div>			
+		<% 
+		        } else {//用户存在，但图片为空，显示 默认图片
+		%>   
+		   <div style = "float:right; margin-right: 20px; ">
+	    欢迎<span style = "font-size:20px; font-weight:bold; color:yellow;"><%=user.getLoginname() %></span>用户!
+	    <img style = "width:50px;height:50px;" alt = "图片" src = "<%=basePath%>/images/avtar.png"/>
+	    <a href= "<%=basePath%>/jsps/user/qqBind.jsp">绑定已有账号</a>
+	    <a style = "padding-left: 5px; font-size:20px; font-weight:bold;text-decoration:underline;" href="quit.do">退出</a>
+	    </div>			      
+		<%
+		          } 
+		   }
+		%>        
+
 		<% if(user == null ) {  %>
 		<div style = "float:right; margin-right: 20px; "><a style = "text-decoration:underline;" href = "<c:url value = '/login.jsp'/>" >点击这里登录</a></div>						
 		<%} %>

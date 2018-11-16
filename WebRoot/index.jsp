@@ -41,9 +41,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script type="text/javascript">
             function getInfo() {
-                if(QC.Login.check()){
-                    QC.api("get_user_info").success(function(s){//成功回调
+                if(QC.Login.check()){//检查是否已经登录
+                    //已登录，则发送请求获取用户信息
+                    QC.api("get_user_info").success(function(s){//获取到数据，并成功回调到设置的回调地址
+	                            /*
+	                             * 回调函数 function(openId, accessToken) 
+	                             * openId：用户身份的唯一标识。建议保存在本地，以便用户下次登录时
+	                             * 可对应到其之前的身份信息，不需要重新授权。 
+	                             * accessToken：表示当前用户在此网站/应用的登录状态与授权信息，
+	                             * 建议保存在本地。 注意： getMe方法只能在用户登录授权后调用，建议总是在使
+	                             * 用check方法并返回true的条件下，调用getMe方法
+	                             *
+	                             */
                             QC.Login.getMe(function(openId, accessToken){
+                            //将获取到的数据传到UserServlet中的QQLogin方法
                                 $.post('QQLogin.do',{name:s.data.nickname,openid:openId,otype:1,token:accessToken,gender:s.data.gender,figureurl_qq_2:s.data.figureurl_qq_2,figureurl_qq_1:s.data.figureurl_qq_1,ret:s.data.ret,figureurl:s.data.figureurl,figureurl_1:s.data.figureurl_1,figureurl_2:s.data.figureurl_2},function(data,status){
                                     if(status=="success") {
                                         //alert(s.data.nickname+"恭喜你,登录成功!");
@@ -51,7 +62,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     } else {
                                         alert("获取用户信息成功！登录失败！");
                                         location.href = "/blog/jsps/user/login.jsp";
-
                                     }
 
                                 })

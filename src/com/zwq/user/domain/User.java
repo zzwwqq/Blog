@@ -16,16 +16,16 @@ public class User {
     
     
     //修改密码表单
-    private String newpass;
+    private String newpass;//新密码
     
     private String telephone;//手机号
     private String passwordProtected;//密码保护问题
     private String answer;//密码保护的答案
     
-    private String openid;
-    private String gender;
-    private String figureurl_2;
-    private String figureurl_qq_2;
+    private String openid;//openID
+    private String gender;//性别
+    private String figureurl_2;//QQ空间图片100*100
+    private String figureurl_qq_2;//QQ图片100*100
     
     
     
